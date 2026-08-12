@@ -14,11 +14,17 @@ test('каждая иллюстрация относится к существу
 test('путь и размеры заполнены', () => {
   for (const [id, image] of Object.entries(STRUCTURE_IMAGES)) {
     assert.equal(image.src, `/anatomy/${id}.webp`);
-    // Порог невысокий: жёлчный пузырь, селезёнка и поджелудочная на плакате
-    // нарисованы мелко, а другого источника для них нет. Всё, что меньше, —
-    // почти наверняка промах рамки, а не особенность рисунка.
-    assert.ok(image.width >= 70, `${id}: слишком узкая иллюстрация (${image.width})`);
-    assert.ok(image.height >= 70, `${id}: слишком низкая иллюстрация (${image.height})`);
+    // Порог по длинной стороне. Он невысокий: жёлчный пузырь и селезёнка на
+    // плакате нарисованы мелко, а другого источника для них нет. Всё, что
+    // меньше, — почти наверняка промах рамки, а не особенность рисунка.
+    assert.ok(
+      Math.max(image.width, image.height) >= 80,
+      `${id}: слишком мелкая иллюстрация (${image.width}x${image.height})`,
+    );
+    // Короткая сторона может быть небольшой честно: ключица плоская, фаланги
+    // узкие. Проверяем только, что рамка вообще во что-то попала.
+    assert.ok(image.width >= 40, `${id}: слишком узкая иллюстрация (${image.width})`);
+    assert.ok(image.height >= 40, `${id}: слишком низкая иллюстрация (${image.height})`);
     // Номер рисунка есть только у иллюстраций из учебника.
     if (image.source === 'openstax') assert.match(image.figure ?? '', /^\d+\.\d+$/);
     else assert.equal(image.figure, undefined, `${id}: у плаката не бывает номера рисунка`);
@@ -30,10 +36,16 @@ test('structureImage возвращает null для структур без и
   assert.ok(structureImage('femur'));
 });
 
-test('органы взяты с плаката, кости — из учебника', () => {
+test('почти всё взято с плаката, остатки из учебника помечены', () => {
+  // Плакат — основной источник. Из учебника остались только структуры, которые
+  // на плакате нарисованы парой и потому подсказывали бы неверный ответ.
   assert.equal(structureImage('liver')?.source, 'poster');
-  assert.equal(structureImage('heart')?.source, 'poster');
-  assert.equal(structureImage('femur')?.source, 'openstax');
+  assert.equal(structureImage('femur')?.source, 'poster');
+  assert.equal(structureImage('quadriceps')?.source, 'poster');
+  assert.equal(structureImage('tibia')?.source, 'openstax');
+
+  const poster = Object.values(STRUCTURE_IMAGES).filter((i) => i.source === 'poster').length;
+  assert.ok(poster >= 25, `с плаката всего ${poster} — слишком мало`);
 });
 
 test('allHaveImages требует иллюстрации у всех вариантов', () => {
