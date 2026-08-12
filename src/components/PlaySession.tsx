@@ -70,7 +70,7 @@ export default function PlaySession({ slug }: { slug: string }) {
     return (
       <div className="min-h-dvh">
         <Hud />
-        <div className="grid place-items-center py-32 text-slate-400">Собираем миссию…</div>
+        <div className="grid place-items-center py-32 text-slate-500">Собираем миссию…</div>
       </div>
     );
   }
@@ -303,7 +303,7 @@ function RunningSession(params: SessionParams) {
     return (
       <div className="min-h-dvh">
         <Hud />
-        <div className="grid place-items-center py-32 text-slate-400">
+        <div className="grid place-items-center py-32 text-slate-500">
           Для этого режима пока нет заданий.
         </div>
         <div className="text-center">
@@ -331,13 +331,13 @@ function RunningSession(params: SessionParams) {
         {/* Шапка сессии: режим, счёт, таймер, прогресс */}
         <div className="panel mb-4 p-4">
           <div className="mb-2 flex items-center justify-between gap-3 text-sm">
-            <span className="font-bold text-slate-300">
+            <span className="font-bold text-slate-500">
               {config.emoji} {config.title}
               {continentName ? ` · ${continentName}` : ''}
               {trainName ? ` · ${trainName}` : ''}
               {pairLabel ? ` · ${pairLabel}` : ''}
             </span>
-            <span className="flex items-center gap-3 text-slate-400">
+            <span className="flex items-center gap-3 text-slate-500">
               <span className="font-bold">
                 Вопрос {index + 1} из {questions.length}
               </span>
@@ -393,13 +393,13 @@ function RunningSession(params: SessionParams) {
 
                 {current.hint && phase === 'asking' && (
                   hintShown ? (
-                    <p className="animate-pop rounded-lg bg-amber-400/10 px-3 py-2 text-center text-sm font-bold text-amber-300">
+                    <p className="animate-pop rounded-lg bg-amber-400/10 px-3 py-2 text-center text-sm font-bold text-amber-600">
                       💡 {current.hint}
                     </p>
                   ) : (
                     <button
                       onClick={() => setHintShown(true)}
-                      className="btn-ghost px-3 py-2 text-sm text-slate-400"
+                      className="btn-ghost px-3 py-2 text-sm text-slate-500"
                     >
                       💡 Подсказка
                     </button>
@@ -547,8 +547,8 @@ function OptionButton({
       ) : (
         <span>{country.name}</span>
       )}
-      {revealed && isAnswer && <span className="ml-auto text-emerald-300">✓</span>}
-      {revealed && isChosen && !isAnswer && <span className="ml-auto text-rose-300">✗</span>}
+      {revealed && isAnswer && <span className="ml-auto text-emerald-600">✓</span>}
+      {revealed && isChosen && !isAnswer && <span className="ml-auto text-rose-600">✗</span>}
     </button>
   );
 }
@@ -610,7 +610,7 @@ function GlobeQuestion({
       </div>
       {phase === 'wrong' && (
         <div className="border-t border-line p-4 text-center">
-          <p className="font-extrabold text-rose-300">
+          <p className="font-extrabold text-rose-600">
             ❌ Это {chosen ? getCountry(chosen)?.name : 'другая страна'}. Правильный ответ подсвечен.
           </p>
           <button onClick={onNext} className="btn-primary mt-3 px-8 py-2.5">
@@ -643,7 +643,7 @@ function Feedback({
 
   if (phase === 'right') {
     return (
-      <div className="animate-pop mt-5 rounded-xl border border-emerald-400/40 bg-emerald-500/10 p-3 text-center font-extrabold text-emerald-300">
+      <div className="animate-pop mt-5 rounded-xl border border-emerald-400/40 bg-emerald-500/10 p-3 text-center font-extrabold text-emerald-600">
         ✅ Верно — {answer?.name}
       </div>
     );
@@ -656,8 +656,8 @@ function Feedback({
           <FlagImage code={answerCode} size={52} />
           <div className="text-sm">
             <p className="text-base font-extrabold">Это {answer?.name}</p>
-            <p className="text-slate-400">Столица: {answer?.capital}</p>
-            <p className="text-slate-400">
+            <p className="text-slate-500">Столица: {answer?.capital}</p>
+            <p className="text-slate-500">
               Континент: {answer && CONTINENT_BY_ID.get(answer.continent)?.name}
             </p>
           </div>
@@ -666,8 +666,8 @@ function Feedback({
         {wrong && (
           <div className="flex items-center gap-2 opacity-70">
             <FlagImage code={wrong.code} size={36} />
-            <p className="text-sm text-slate-400">
-              Ты выбрал: <span className="font-bold text-slate-300">{wrong.name}</span>
+            <p className="text-sm text-slate-500">
+              Ты выбрал: <span className="font-bold text-slate-500">{wrong.name}</span>
             </p>
           </div>
         )}
@@ -785,7 +785,7 @@ function Results({
       <main className="mx-auto w-full max-w-2xl px-4 py-10 sm:px-6">
         <div className="panel animate-pop p-7">
           <h1 className="text-center text-2xl font-extrabold">{title}</h1>
-          <p className="mt-1 text-center text-sm text-slate-400">Вы закончили сессию</p>
+          <p className="mt-1 text-center text-sm text-slate-500">Вы закончили сессию</p>
 
           <div className="mt-6 flex flex-wrap items-center justify-center gap-8">
             <Donut percent={percent} size={130} stroke={11} color={percent >= 70 ? '#22c55e' : '#f59e0b'}>
@@ -793,21 +793,21 @@ function Results({
                 <div className="text-2xl font-extrabold">
                   {correct}/{total}
                 </div>
-                <div className="text-sm font-bold text-slate-400">{percent}%</div>
+                <div className="text-sm font-bold text-slate-500">{percent}%</div>
               </div>
             </Donut>
 
             <dl className="space-y-2.5 text-sm">
               <div className="flex items-center justify-between gap-10">
-                <dt className="text-slate-400">⭐ XP заработано</dt>
-                <dd className="font-extrabold text-emerald-300">+{xp}</dd>
+                <dt className="text-slate-500">⭐ XP заработано</dt>
+                <dd className="font-extrabold text-emerald-600">+{xp}</dd>
               </div>
               <div className="flex items-center justify-between gap-10">
-                <dt className="text-slate-400">🪙 Монеты</dt>
-                <dd className="font-extrabold text-amber-300">+{coins}</dd>
+                <dt className="text-slate-500">🪙 Монеты</dt>
+                <dd className="font-extrabold text-amber-600">+{coins}</dd>
               </div>
               <div className="flex items-center justify-between gap-10">
-                <dt className="text-slate-400">🔥 Лучшая серия</dt>
+                <dt className="text-slate-500">🔥 Лучшая серия</dt>
                 <dd className="font-extrabold">{bestStreak}</dd>
               </div>
             </dl>
@@ -820,7 +820,7 @@ function Results({
                 {uniqueEarned.map((a) => (
                   <span
                     key={a.id}
-                    className="rounded-full border border-amber-300/40 bg-amber-400/10 px-4 py-1.5 text-sm font-bold text-amber-200"
+                    className="rounded-full border border-amber-300/40 bg-amber-400/10 px-4 py-1.5 text-sm font-bold text-amber-700"
                   >
                     {a.emoji} {a.title}
                   </span>

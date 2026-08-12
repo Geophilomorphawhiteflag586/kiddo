@@ -19,12 +19,12 @@ export default function AdditionPage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-3xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/math" className="text-sm text-slate-500 hover:text-white">
+        <Link href="/math" className="text-sm text-slate-500 hover:text-ink">
           ← Математика
         </Link>
 
         <h1 className="mt-3 text-3xl font-extrabold">Сложение</h1>
-        <p className="mt-1 text-slate-400">
+        <p className="mt-1 text-slate-500">
           Уровень сложности внутри каждого раздела подбирается автоматически.
         </p>
 
@@ -59,7 +59,7 @@ export default function AdditionPage() {
                 </div>
                 <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-xs text-slate-500">
                   <span>
-                    <span className="font-extrabold text-slate-300">{stats.correct}</span> / {meta.goal}
+                    <span className="font-extrabold text-slate-500">{stats.correct}</span> / {meta.goal}
                   </span>
                   <span>Точность: {stats.solved ? pct(accuracyOf(stats)) : '—'}</span>
                   <span>

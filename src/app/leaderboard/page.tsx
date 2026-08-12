@@ -63,7 +63,7 @@ export default function LeaderboardPage() {
       <Hud />
       <main className="mx-auto w-full max-w-5xl px-4 pb-16 pt-4 sm:px-6">
         <h1 className="text-2xl font-extrabold">Рейтинг</h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <p className="mt-1 text-sm text-slate-500">
           Skill Score показывает знания, XP — активность, ELO — успех в соревнованиях.
         </p>
 
@@ -77,7 +77,7 @@ export default function LeaderboardPage() {
               className={`rounded-lg px-3.5 py-2 text-sm font-bold transition ${
                 tab === t.id
                   ? 'bg-accent text-white'
-                  : 'border border-line bg-ink-800 text-slate-400 hover:text-white'
+                  : 'border border-line bg-ink-800 text-slate-500 hover:text-ink'
               }`}
             >
               {t.label}
@@ -124,7 +124,7 @@ function RegisterPanel() {
   return (
     <form onSubmit={submit} className="panel mt-4 p-4">
       <p className="font-extrabold">Придумайте уникальный никнейм</p>
-      <p className="mt-1 text-sm text-slate-400">
+      <p className="mt-1 text-sm text-slate-500">
         Он нужен для участия в глобальном рейтинге, добавления друзей и будущих дуэлей.
         Прогресс обучения останется на этом устройстве.
       </p>
@@ -153,7 +153,7 @@ function RegisterPanel() {
           {busy ? 'Создаём…' : 'Создать'}
         </button>
       </div>
-      {error && <p className="mt-2 text-sm font-bold text-rose-400">{error}</p>}
+      {error && <p className="mt-2 text-sm font-bold text-rose-600">{error}</p>}
     </form>
   );
 }
@@ -171,7 +171,7 @@ function AllTimeTab({ sync, hasAccount }: { sync: SyncResponse | null; hasAccoun
       .catch((e) => setError(e instanceof ApiError ? e.message : 'Сервер недоступен'));
   }, [page, sync]);
 
-  if (error) return <p className="panel p-4 text-sm text-rose-400">{error}</p>;
+  if (error) return <p className="panel p-4 text-sm text-rose-600">{error}</p>;
   if (!board) return <div className="panel h-48 animate-pulse" />;
 
   const medal = ['🥇', '🥈', '🥉'];
@@ -188,16 +188,16 @@ function AllTimeTab({ sync, hasAccount }: { sync: SyncResponse | null; hasAccoun
             <p className="panel-title">Ваша позиция</p>
             <p className="text-2xl font-extrabold">
               {fmt(sync.position)}
-              <span className="ml-2 text-sm font-bold text-slate-400">
+              <span className="ml-2 text-sm font-bold text-slate-500">
                 топ {Math.max(1, Math.ceil((sync.position / Math.max(1, sync.totalPlayers)) * 100))}%
               </span>
             </p>
           </div>
-          <div className="min-w-48 flex-1 text-xs text-slate-400">
+          <div className="min-w-48 flex-1 text-xs text-slate-500">
             {(Object.keys(BREAKDOWN_LABELS) as Array<keyof typeof BREAKDOWN_LABELS>).map((k) => (
               <div key={k} className="flex justify-between gap-4">
                 <span>{BREAKDOWN_LABELS[k]}</span>
-                <span className="font-bold tabular-nums text-slate-300">
+                <span className="font-bold tabular-nums text-slate-500">
                   {fmt(sync.skillScore[k])}
                 </span>
               </div>
@@ -211,7 +211,7 @@ function AllTimeTab({ sync, hasAccount }: { sync: SyncResponse | null; hasAccoun
           <PlayerRow key={row.userId} row={row} medal={medal[row.position - 1]} />
         ))}
         {board.rows.length === 0 && (
-          <p className="p-4 text-sm text-slate-400">
+          <p className="p-4 text-sm text-slate-500">
             Пока пусто. Запустите <code>npm run seed:demo</code>, чтобы заполнить рейтинг
             демо-ботами, или сыграйте сессию.
           </p>
@@ -264,12 +264,12 @@ function PlayerRow({ row, medal }: { row: LeaderboardRow; medal?: string }) {
 
   return (
     <div className={`flex items-center gap-3 p-3 ${tone}`}>
-      <span className="w-10 shrink-0 text-center text-lg font-extrabold text-slate-400">
+      <span className="w-10 shrink-0 text-center text-lg font-extrabold text-slate-500">
         {medal ?? row.position}
       </span>
       <span
         aria-hidden
-        className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-accent to-indigo-600 font-extrabold"
+        className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-accent to-indigo-600 font-extrabold text-white"
       >
         {row.nickname.slice(0, 1).toUpperCase()}
       </span>
@@ -278,7 +278,7 @@ function PlayerRow({ row, medal }: { row: LeaderboardRow; medal?: string }) {
           {row.nickname}
           {country && <span aria-hidden>{country.emoji}</span>}
           {row.isBot && (
-            <span className="rounded bg-slate-700 px-1.5 text-[10px] font-bold text-slate-300">
+            <span className="rounded bg-slate-700 px-1.5 text-[10px] font-bold text-slate-500">
               бот
             </span>
           )}
@@ -318,7 +318,7 @@ function FriendsTab({ hasAccount }: { hasAccount: boolean }) {
   useEffect(reload, [reload]);
 
   if (!hasAccount) {
-    return <p className="panel p-4 text-sm text-slate-400">Создайте никнейм, чтобы добавлять друзей.</p>;
+    return <p className="panel p-4 text-sm text-slate-500">Создайте никнейм, чтобы добавлять друзей.</p>;
   }
 
   const search = async (e: React.FormEvent) => {
@@ -359,7 +359,7 @@ function FriendsTab({ hasAccount }: { hasAccount: boolean }) {
         {found === 'empty' && <p className="mt-2 text-sm text-slate-500">Никто не найден.</p>}
         {found && typeof found === 'object' && (
           <div className="mt-3 flex items-center gap-3 rounded-xl border border-line bg-ink-700/50 p-3">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-accent to-indigo-600 font-extrabold">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-accent to-indigo-600 font-extrabold text-white">
               {found.nickname.slice(0, 1).toUpperCase()}
             </span>
             <div className="flex-1">
@@ -379,12 +379,12 @@ function FriendsTab({ hasAccount }: { hasAccount: boolean }) {
             {found.friendship === 'pending_sent' && (
               <span className="text-sm text-slate-500">Заявка отправлена</span>
             )}
-            {found.friendship === 'accepted' && <span className="text-sm text-emerald-400">Уже в друзьях</span>}
+            {found.friendship === 'accepted' && <span className="text-sm text-emerald-600">Уже в друзьях</span>}
           </div>
         )}
       </form>
 
-      {error && <p className="text-sm font-bold text-rose-400">{error}</p>}
+      {error && <p className="text-sm font-bold text-rose-600">{error}</p>}
 
       {data && data.incoming.length > 0 && (
         <div className="panel p-4">
@@ -409,7 +409,7 @@ function FriendsTab({ hasAccount }: { hasAccount: boolean }) {
           const isMe = row.nickname === me.account?.nickname;
           return (
             <div key={row.userId} className={`flex items-center gap-3 p-3 ${isMe ? 'bg-accent/10' : ''}`}>
-              <span className="w-8 text-center font-extrabold text-slate-400">{i + 1}</span>
+              <span className="w-8 text-center font-extrabold text-slate-500">{i + 1}</span>
               <span className="flex-1 truncate font-bold">
                 {isMe ? 'Вы' : row.nickname}
                 {row.isBot && (
@@ -428,7 +428,7 @@ function FriendsTab({ hasAccount }: { hasAccount: boolean }) {
                   </button>
                   <button
                     onClick={() => act('remove', row.userId)}
-                    className="rounded px-2 py-1 text-xs text-slate-600 hover:text-rose-400"
+                    className="rounded px-2 py-1 text-xs text-slate-600 hover:text-rose-600"
                   >
                     удалить
                   </button>
@@ -522,7 +522,7 @@ function WorldTab() {
       .catch((e) => setError(e instanceof ApiError ? e.message : 'Сервер недоступен'));
   }, []);
 
-  if (error) return <p className="panel p-4 text-sm text-rose-400">{error}</p>;
+  if (error) return <p className="panel p-4 text-sm text-rose-600">{error}</p>;
   if (!stats) return <div className="panel h-48 animate-pulse" />;
 
   const cells: Array<[string, string]> = [
@@ -542,7 +542,7 @@ function WorldTab() {
   return (
     <div className="space-y-4">
       {stats.hasDemoData && (
-        <p className="rounded-lg border border-amber-300/30 bg-amber-400/10 px-3 py-2 text-xs font-bold text-amber-200">
+        <p className="rounded-lg border border-amber-300/30 bg-amber-400/10 px-3 py-2 text-xs font-bold text-amber-700">
           В статистике есть демо-данные ботов — они помечены и будут удалены после запуска.
         </p>
       )}
@@ -594,7 +594,7 @@ function WorldTab() {
                           </span>
                         )}
                       </span>
-                      <span className="font-extrabold text-rose-300">{pct(entry.accuracy)}</span>
+                      <span className="font-extrabold text-rose-600">{pct(entry.accuracy)}</span>
                       <span className="w-16 text-right text-xs text-slate-500">
                         {sec(entry.avgMs)}
                       </span>
@@ -619,22 +619,22 @@ function BattleTab() {
         ⚔️
       </p>
       <h2 className="mt-2 text-xl font-extrabold">Battle Royale — этап 3</h2>
-      <p className="mt-2 max-w-xl text-sm text-slate-400">
+      <p className="mt-2 max-w-xl text-sm text-slate-500">
         До 100 игроков, 20 одинаковых вопросов, позиция меняется после каждого ответа, никто не
         выбывает до конца. XP и рейтинг — по итоговому месту. Дуэли 1 на 1 с ELO придут раньше —
         на этапе 2.
       </p>
       <div className="mt-4 grid max-w-md gap-2 text-sm">
         <div className="flex justify-between rounded-lg border border-line bg-ink-700/40 px-3 py-2">
-          <span className="text-slate-400">Формат</span>
+          <span className="text-slate-500">Формат</span>
           <span className="font-bold">100 игроков · 20 вопросов · 8–10 минут</span>
         </div>
         <div className="flex justify-between rounded-lg border border-line bg-ink-700/40 px-3 py-2">
-          <span className="text-slate-400">Ежедневные турниры</span>
+          <span className="text-slate-500">Ежедневные турниры</span>
           <span className="font-bold">12:00 · 18:00 · 21:00</span>
         </div>
         <div className="flex justify-between rounded-lg border border-line bg-ink-700/40 px-3 py-2">
-          <span className="text-slate-400">Награда за 1 место</span>
+          <span className="text-slate-500">Награда за 1 место</span>
           <span className="font-bold">1 000 XP</span>
         </div>
       </div>

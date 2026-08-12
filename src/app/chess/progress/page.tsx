@@ -44,12 +44,12 @@ export default function ChessProgressPage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-4xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/chess" className="text-sm text-slate-500 hover:text-white">
+        <Link href="/chess" className="text-sm text-slate-500 hover:text-ink">
           ← Шахматы
         </Link>
 
         <h1 className="mt-3 text-3xl font-extrabold">Шахматы · статистика</h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <p className="mt-1 text-sm text-slate-500">
           Профиль: {profile.name}. Здесь видно не только результат, но и ход мысли.
         </p>
 
@@ -154,16 +154,16 @@ function PuzzleCard({
         <div className="flex items-center gap-2">
           <span className="font-extrabold">Задача #{record.puzzleId}</span>
           {record.solved ? (
-            <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-bold text-emerald-300">
+            <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-bold text-emerald-600">
               решена
             </span>
           ) : (
-            <span className="rounded-full bg-ink-700 px-2 py-0.5 text-xs font-bold text-slate-400">
+            <span className="rounded-full bg-ink-700 px-2 py-0.5 text-xs font-bold text-slate-500">
               в процессе
             </span>
           )}
           {record.solvedFirstTry && (
-            <span className="rounded-full bg-amber-400/15 px-2 py-0.5 text-xs font-bold text-amber-200">
+            <span className="rounded-full bg-amber-400/15 px-2 py-0.5 text-xs font-bold text-amber-700">
               с первой
             </span>
           )}

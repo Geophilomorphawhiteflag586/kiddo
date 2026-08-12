@@ -3,14 +3,35 @@
 @theme {
   --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
 
-  /* Палитра макета: почти чёрный фон, панели чуть светлее, фиолетовый акцент. */
-  --color-ink-950: #05070d;
-  --color-ink-900: #0a0e17;
-  --color-ink-800: #0e1420;
-  --color-ink-700: #141b2b;
-  --color-line: #1d2536;
-  --color-accent: #7c5cfc;
-  --color-accent-strong: #6d4df0;
+  /*
+   * Светлая тема Kiddo.
+   *
+   * Имена ink-* остались от прежнего тёмного макета и намеренно не
+   * переименованы: на них завязаны все экраны. Поменялись только значения —
+   * шкала теперь идёт от фона страницы к белой панели, а не наоборот.
+   */
+  --color-ink-950: #eaeefb; /* фон страницы */
+  --color-ink-900: #f3f6fd; /* приглушённая подложка */
+  --color-ink-800: #ffffff; /* панель, карточка */
+  --color-ink-700: #eef1fa; /* заливка, ховер, дорожка прогресса */
+  --color-line: #e0e5f2; /* границы */
+
+  /* Основной цвет текста. Заменяет прежний text-white. */
+  --color-ink: #1b2140;
+
+  --color-accent: #6c4fd8;
+  --color-accent-strong: #5a3fc4;
+
+  /* Фирменные цвета: те же, что в логотипе. */
+  --color-brand-purple: #6c4fd8;
+  --color-brand-yellow: #ffc61e;
+  --color-brand-blue: #1e88e5;
+  --color-brand-teal: #12b886;
+  --color-brand-orange: #fa6a28;
+
+  /* Тёмная боковая панель — единственный тёмный элемент оболочки. */
+  --color-shell: #171b2e;
+  --color-shell-soft: #232840;
 
   --animate-pop: pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   --animate-shake: shake 0.4s ease-in-out;
@@ -28,26 +49,44 @@
 }
 
 body {
-  background:
-    radial-gradient(70% 50% at 50% 0%, rgba(124, 92, 252, 0.07) 0%, transparent 60%),
-    var(--color-ink-950);
-  color: #e5e9f2;
+  background: var(--color-ink-950);
+  color: var(--color-ink);
   font-family: var(--font-sans);
   min-height: 100dvh;
 }
 
+/*
+ * Боковая панель зафиксирована слева, поэтому содержимое страниц сдвигается
+ * отступом у body. Так ни одну из двадцати страниц не пришлось оборачивать в
+ * новый контейнер: их разметка осталась прежней.
+ */
+@media (min-width: 1024px) {
+  body {
+    padding-left: 15.5rem;
+  }
+}
+
+/* На телефоне снизу закреплена панель навигации — оставляем под неё место. */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 3.25rem;
+  }
+}
+
 /* Панель интерфейса — базовый строительный блок макета. */
 .panel {
-  border-radius: 1rem;
+  border-radius: 1.25rem;
   border: 1px solid var(--color-line);
   background: var(--color-ink-800);
+  box-shadow: 0 1px 2px rgba(27, 33, 64, 0.04), 0 8px 24px -16px rgba(27, 33, 64, 0.18);
 }
 
 /* Совместимость: старое имя тоже указывает на панель. */
 .card {
-  border-radius: 1rem;
+  border-radius: 1.25rem;
   border: 1px solid var(--color-line);
   background: var(--color-ink-800);
+  box-shadow: 0 1px 2px rgba(27, 33, 64, 0.04), 0 8px 24px -16px rgba(27, 33, 64, 0.18);
 }
 
 .panel-title {
@@ -55,37 +94,69 @@ body {
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #8b93a7;
+  color: #7a83a0;
 }
 
 .btn-primary {
-  border-radius: 0.75rem;
+  border-radius: 0.9rem;
   background: var(--color-accent);
+  color: #ffffff;
   font-weight: 800;
+  box-shadow: 0 6px 16px -8px rgba(108, 79, 216, 0.8);
   transition: background 0.15s ease, transform 0.15s ease;
 }
 .btn-primary:hover {
   background: var(--color-accent-strong);
 }
+.btn-primary:active {
+  transform: translateY(1px);
+}
 
 .btn-ghost {
-  border-radius: 0.75rem;
+  border-radius: 0.9rem;
   border: 1px solid var(--color-line);
-  background: var(--color-ink-700);
+  background: var(--color-ink-800);
+  color: var(--color-ink);
   font-weight: 700;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 .btn-ghost:hover {
-  background: #1a2234;
+  background: var(--color-ink-700);
+  border-color: #cfd6ea;
 }
 
-/* Подсказка при наведении на страну — рисуется внутри канваса globe.gl. */
+/*
+ * Цветная карточка направления в Learning Hub. Градиент задаётся переменными
+ * --from и --to прямо в разметке, чтобы палитра жила рядом с модулем.
+ */
+.tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background-image: linear-gradient(140deg, var(--from) 0%, var(--to) 100%);
+  color: #ffffff;
+  box-shadow: 0 10px 30px -18px rgba(27, 33, 64, 0.55);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.tile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px -18px rgba(27, 33, 64, 0.6);
+}
+.tile-soon {
+  filter: saturate(0.55);
+}
+
+/* Глобус живёт в собственной тёмной сцене — светлая тема к ней не применяется. */
+.globe-stage {
+  background: radial-gradient(70% 60% at 50% 40%, #101a33 0%, #05070d 100%);
+}
+
 .globe-tooltip {
   padding: 6px 12px;
   border-radius: 999px;
   background: rgba(5, 7, 13, 0.92);
-  border: 1px solid var(--color-line);
-  color: #e5e9f2;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
   font-size: 14px;
   font-weight: 700;
   white-space: nowrap;
@@ -94,7 +165,7 @@ body {
 /* Флаг всегда прямоугольный, с рамкой — иначе белые флаги сливаются с фоном. */
 .flag {
   border-radius: 0.4rem;
-  border: 1px solid rgba(226, 232, 240, 0.18);
+  border: 1px solid rgba(27, 33, 64, 0.14);
   object-fit: cover;
 }
 

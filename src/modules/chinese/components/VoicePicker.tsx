@@ -44,8 +44,8 @@ export default function VoicePicker() {
         aria-expanded={open}
         className="flex w-full items-center justify-between gap-2 text-left"
       >
-        <span className="text-slate-400">
-          Голос: <span className="font-bold text-slate-200">{active?.name ?? 'не найден'}</span>
+        <span className="text-slate-500">
+          Голос: <span className="font-bold text-slate-600">{active?.name ?? 'не найден'}</span>
         </span>
         <span className="text-xs text-accent">{open ? 'Свернуть' : 'Выбрать другой'}</span>
       </button>
@@ -53,7 +53,7 @@ export default function VoicePicker() {
       {open && (
         <div className="mt-3 space-y-1.5">
           {chinese.length === 0 && (
-            <p className="text-xs text-amber-300">
+            <p className="text-xs text-amber-600">
               Китайских голосов в системе нет. Ниже — всё, что доступно браузеру; чужой язык
               прочитает иероглифы неправильно.
             </p>

@@ -60,12 +60,12 @@ export default function MathPage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-4xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/learn" className="text-sm text-slate-500 hover:text-white">
+        <Link href="/learn" className="text-sm text-slate-500 hover:text-ink">
           ← Все направления
         </Link>
 
         <h1 className="mt-3 text-3xl font-extrabold">Математика</h1>
-        <p className="mt-1 text-slate-400">Что будем изучать?</p>
+        <p className="mt-1 text-slate-500">Что будем изучать?</p>
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           {OPERATIONS.map((op) => {
@@ -82,7 +82,7 @@ export default function MathPage() {
                   </span>
                   <span className="flex-1 text-lg font-extrabold">{op.title}</span>
                   {soon ? (
-                    <span className="rounded-full border border-line bg-ink-700 px-2.5 py-1 text-[10px] font-extrabold uppercase text-slate-400">
+                    <span className="rounded-full border border-line bg-ink-700 px-2.5 py-1 text-[10px] font-extrabold uppercase text-slate-500">
                       Скоро
                     </span>
                   ) : (
@@ -95,7 +95,7 @@ export default function MathPage() {
                   {op.topics.map((topic) => (
                     <li
                       key={topic}
-                      className="rounded-lg border border-line bg-ink-700/50 px-2 py-1 text-xs text-slate-400"
+                      className="rounded-lg border border-line bg-ink-700/50 px-2 py-1 text-xs text-slate-500"
                     >
                       {topic}
                     </li>

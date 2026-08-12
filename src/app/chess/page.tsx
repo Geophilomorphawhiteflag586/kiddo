@@ -44,7 +44,7 @@ export default function ChessPage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-3xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/learn" className="text-sm text-slate-500 hover:text-white">
+        <Link href="/learn" className="text-sm text-slate-500 hover:text-ink">
           ← Все направления
         </Link>
 
@@ -53,7 +53,7 @@ export default function ChessPage() {
             ♟️
           </span>
           <h1 className="mt-3 text-4xl font-extrabold">Шахматы</h1>
-          <p className="mt-2 text-slate-400">
+          <p className="mt-2 text-slate-500">
             Мат в 1 ход. Найди единственный ход, который ставит мат.
           </p>
 
@@ -77,7 +77,7 @@ export default function ChessPage() {
                 >
                   <p className="font-extrabold">{level.title}</p>
                   <p className="mt-0.5 text-xs text-slate-500">{level.hint}</p>
-                  <p className="mt-2 text-xs text-slate-400">
+                  <p className="mt-2 text-xs text-slate-500">
                     {done} / {counts[level.id] ?? 0} решено
                   </p>
                 </Link>
@@ -91,7 +91,7 @@ export default function ChessPage() {
             <span className="font-extrabold">
               {solved} / {TOTAL_PUZZLES} задач решено
             </span>
-            <span className="text-sm font-bold text-emerald-300">{percent}%</span>
+            <span className="text-sm font-bold text-emerald-600">{percent}%</span>
           </div>
           <div className="mt-2 h-3 w-full overflow-hidden rounded-full bg-ink-700">
             <div
@@ -110,7 +110,7 @@ export default function ChessPage() {
 
         <section className="panel mt-4 p-5">
           <p className="panel-title mb-2">Как это работает</p>
-          <ul className="space-y-1.5 text-sm text-slate-400">
+          <ul className="space-y-1.5 text-sm text-slate-500">
             <li>· Нажми свою фигуру, потом клетку, куда пойти.</li>
             <li>· Подсказок нет: куда ходит фигура — придумай сам.</li>
             <li>· Ошибся — ничего страшного, позиция вернётся, пробуй ещё.</li>

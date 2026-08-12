@@ -34,7 +34,7 @@ export default function ChessSession() {
     return (
       <div className="min-h-dvh">
         <Hud />
-        <div className="grid place-items-center py-32 text-slate-400">Расставляем фигуры…</div>
+        <div className="grid place-items-center py-32 text-slate-500">Расставляем фигуры…</div>
       </div>
     );
   }
@@ -169,7 +169,7 @@ function RunningSession({
     return (
       <div className="min-h-dvh">
         <Hud />
-        <div className="grid place-items-center py-32 text-slate-400">Задача не найдена.</div>
+        <div className="grid place-items-center py-32 text-slate-500">Задача не найдена.</div>
       </div>
     );
   }
@@ -180,13 +180,13 @@ function RunningSession({
 
       <main className="mx-auto w-full max-w-3xl px-4 pb-16 pt-6 sm:px-6">
         <div className="mb-4 flex items-center justify-between text-sm">
-          <span className="font-bold text-slate-300">
+          <span className="font-bold text-slate-500">
             Задача {index + 1} / {ids.length}
             <span className="ml-2 text-xs text-slate-600">
               #{puzzle.id} · {DIFFICULTY_LABELS[puzzle.difficulty].toLowerCase()}
             </span>
           </span>
-          <span className="tabular-nums text-slate-400">{formatTime(elapsed)}</span>
+          <span className="tabular-nums text-slate-500">{formatTime(elapsed)}</span>
         </div>
 
         <div className="panel p-5">
@@ -214,10 +214,10 @@ function RunningSession({
           <div aria-live="polite" className="mt-4 min-h-20 text-center">
             {feedback?.kind === 'illegal' && (
               <div className="animate-pop rounded-xl border border-amber-400/40 bg-amber-400/10 p-3">
-                <p className="font-extrabold text-amber-200">
+                <p className="font-extrabold text-amber-700">
                   {ILLEGAL_MESSAGES[feedback.attempt.reason ?? 'not_a_move'].title}
                 </p>
-                <p className="mt-0.5 text-sm text-slate-400">
+                <p className="mt-0.5 text-sm text-slate-500">
                   {ILLEGAL_MESSAGES[feedback.attempt.reason ?? 'not_a_move'].hint}
                 </p>
               </div>
@@ -227,17 +227,17 @@ function RunningSession({
                 <p className="font-extrabold text-sky-200">
                   {feedback.attempt.move} — ход есть, но мата нет
                 </p>
-                <p className="mt-0.5 text-sm text-slate-400">
+                <p className="mt-0.5 text-sm text-slate-500">
                   {feedback.attempt.isCheck ? 'Это шах, но король уходит' : 'Ищите дальше'}
                 </p>
               </div>
             )}
             {feedback?.kind === 'mate' && (
               <div className="animate-pop rounded-xl border border-emerald-400/40 bg-emerald-500/10 p-4">
-                <p className="text-xl font-extrabold text-emerald-300">
+                <p className="text-xl font-extrabold text-emerald-600">
                   ✓ Мат! {feedback.attempt.move}
                 </p>
-                <div className="mt-2 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm text-slate-300">
+                <div className="mt-2 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm text-slate-500">
                   <span>Время: {formatTime(feedback.attempt.elapsedTimeMs)}</span>
                   <span>Попыток: {feedback.attempt.attemptNumber}</span>
                   <span>

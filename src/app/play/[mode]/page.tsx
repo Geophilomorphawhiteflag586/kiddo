@@ -14,7 +14,7 @@ export default async function PlayPage({ params }: { params: Promise<{ mode: str
   return (
     <Suspense
       fallback={
-        <div className="grid min-h-dvh place-items-center text-slate-400">Загружаем миссию…</div>
+        <div className="grid min-h-dvh place-items-center text-slate-500">Загружаем миссию…</div>
       }
     >
       <PlaySession slug={mode} />

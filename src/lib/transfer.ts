@@ -15,8 +15,16 @@ import { normalizeMathProgress } from '../modules/mathematics/progress.ts';
 import { emptyProfileData, type ProfileData } from './progress.ts';
 import type { UserProfile } from './types.ts';
 
+/**
+ * Метка приложения в файле копии. Раньше приложение называлось MapApp, и у
+ * пользователей остались копии со старой меткой — их надо принимать и дальше,
+ * иначе перенос прогресса сломается на переименовании.
+ */
+export const BACKUP_APP = 'kiddo';
+const LEGACY_APP = 'mapapp';
+
 export interface ProfileBackup {
-  app: 'mapapp';
+  app: typeof BACKUP_APP;
   version: number;
   exportedAt: string;
   profiles: Record<string, UserProfile>;
@@ -27,7 +35,7 @@ export class BackupError extends Error {}
 
 export function buildBackup(state: PersistedState, now = Date.now()): ProfileBackup {
   return {
-    app: 'mapapp',
+    app: BACKUP_APP,
     version: STORE_VERSION,
     exportedAt: new Date(now).toISOString(),
     profiles: state.profiles,
@@ -41,8 +49,8 @@ export function parseBackup(raw: unknown): ProfileBackup {
   if (!backup || typeof backup !== 'object') {
     throw new BackupError('Файл повреждён или это не резервная копия');
   }
-  if (backup.app !== 'mapapp') {
-    throw new BackupError('Это файл не от MapApp');
+  if (backup.app !== BACKUP_APP && (backup.app as string | undefined) !== LEGACY_APP) {
+    throw new BackupError('Это файл не от Kiddo');
   }
   if (!backup.profiles || typeof backup.profiles !== 'object') {
     throw new BackupError('В файле нет профилей');
@@ -59,7 +67,7 @@ export function parseBackup(raw: unknown): ProfileBackup {
   );
 
   return {
-    app: 'mapapp',
+    app: BACKUP_APP,
     version: STORE_VERSION,
     exportedAt: typeof backup.exportedAt === 'string' ? backup.exportedAt : '',
     profiles: migrated.profiles,
@@ -143,5 +151,5 @@ export function mergeBackup(
 
 /** Имя файла копии — с датой, чтобы копии не перезаписывали друг друга. */
 export function backupFileName(now = Date.now()): string {
-  return `mapapp-progress-${new Date(now).toISOString().slice(0, 10)}.json`;
+  return `kiddo-progress-${new Date(now).toISOString().slice(0, 10)}.json`;
 }

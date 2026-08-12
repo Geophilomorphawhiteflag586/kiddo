@@ -41,15 +41,15 @@ export default function AttemptList({
             <span className="w-24 font-extrabold tabular-nums">{attempt.move}</span>
             <span className="min-w-0 flex-1 text-xs">
               {attempt.result === 'checkmate' && (
-                <span className="font-bold text-emerald-300">Мат</span>
+                <span className="font-bold text-emerald-600">Мат</span>
               )}
               {attempt.result === 'illegal_move' && (
-                <span className="font-bold text-amber-300">
+                <span className="font-bold text-amber-600">
                   {ILLEGAL_MESSAGES[attempt.reason ?? 'not_a_move'].title}
                 </span>
               )}
               {attempt.result === 'legal_not_mate' && (
-                <span className="text-slate-400">
+                <span className="text-slate-500">
                   Ход возможен, но мата нет{attempt.isCheck ? ' (шах)' : ''}
                 </span>
               )}

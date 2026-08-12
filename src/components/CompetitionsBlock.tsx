@@ -26,7 +26,7 @@ export default function CompetitionsBlock() {
     <section className="panel mt-4 p-4">
       <div className="mb-3 flex items-center justify-between">
         <p className="panel-title">Соревнования</p>
-        <Link href="/leaderboard" className="text-xs font-bold text-accent hover:text-violet-300">
+        <Link href="/leaderboard" className="text-xs font-bold text-accent hover:text-violet-800">
           Открыть рейтинг →
         </Link>
       </div>
@@ -45,7 +45,7 @@ export default function CompetitionsBlock() {
             </>
           ) : (
             <>
-              <p className="mt-1 text-sm text-slate-400">
+              <p className="mt-1 text-sm text-slate-500">
                 Создайте никнейм, чтобы попасть в глобальный рейтинг.
               </p>
               <Link href="/leaderboard" className="btn-primary mt-2 inline-block px-4 py-1.5 text-xs">

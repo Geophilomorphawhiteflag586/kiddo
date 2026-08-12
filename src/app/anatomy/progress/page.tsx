@@ -35,7 +35,7 @@ export default function AnatomyProgressPage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-4xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/anatomy" className="text-sm text-slate-500 hover:text-white">
+        <Link href="/anatomy" className="text-sm text-slate-500 hover:text-ink">
           ← Анатомия
         </Link>
 
@@ -62,7 +62,7 @@ export default function AnatomyProgressPage() {
             <div key={skill}>
               <div className="flex items-baseline justify-between text-sm">
                 <span className="font-extrabold">{SKILL_META[skill].label}</span>
-                <span className="text-slate-400">{hydrated ? summary.bySkill[skill] : 0}%</span>
+                <span className="text-slate-500">{hydrated ? summary.bySkill[skill] : 0}%</span>
               </div>
               <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-ink-700">
                 <div

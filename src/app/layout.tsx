@@ -8,13 +8,15 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: 'ГеоКвест — путешествие по флагам и странам мира',
+  title: 'Kiddo — Learn. Play. Grow.',
   description:
-    'Интерактивный глобус, флаги всех 194 стран и игровые режимы с интервальным повторением.',
+    'География, математика, английский, китайский, шахматы и анатомия в одном приложении. ' +
+    'Короткие сессии и интервальное повторение: приложение само возвращает то, что забывается.',
+  applicationName: 'Kiddo',
 };
 
 export const viewport: Viewport = {
-  themeColor: '#020617',
+  themeColor: '#eaeefb',
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

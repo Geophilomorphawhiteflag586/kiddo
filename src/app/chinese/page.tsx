@@ -35,7 +35,7 @@ export default function ChinesePage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-3xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/learn" className="text-sm text-slate-500 hover:text-white">
+        <Link href="/learn" className="text-sm text-slate-500 hover:text-ink">
           ← Все направления
         </Link>
 
@@ -44,7 +44,7 @@ export default function ChinesePage() {
             🇨🇳
           </span>
           <h1 className="mt-3 text-5xl font-extrabold">中文</h1>
-          <p className="mt-2 text-slate-400">
+          <p className="mt-2 text-slate-500">
             Учим китайские иероглифы: знак → пиньинь → звук → значение.
           </p>
 
@@ -58,7 +58,7 @@ export default function ChinesePage() {
             <span className="font-extrabold">
               {learned} / {TOTAL_CHARACTERS} 汉字
             </span>
-            <span className="text-sm font-bold text-emerald-300">{percent}%</span>
+            <span className="text-sm font-bold text-emerald-600">{percent}%</span>
           </div>
           <div className="mt-2 h-3 w-full overflow-hidden rounded-full bg-ink-700">
             <div

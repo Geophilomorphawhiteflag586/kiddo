@@ -101,7 +101,7 @@ export default function ChessBoard({
                     aria-hidden
                     className={`relative ${
                       cell.color === 'w'
-                        ? 'text-white [text-shadow:0_1px_2px_rgba(0,0,0,.6)]'
+                        ? 'text-ink [text-shadow:0_1px_2px_rgba(0,0,0,.6)]'
                         : 'text-[#10131c]'
                     }`}
                   >

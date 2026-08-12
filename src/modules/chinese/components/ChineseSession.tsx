@@ -50,7 +50,7 @@ export default function ChineseSession() {
     return (
       <div className="min-h-dvh">
         <Hud />
-        <div className="grid place-items-center py-32 text-slate-400">加载中…</div>
+        <div className="grid place-items-center py-32 text-slate-500">加载中…</div>
       </div>
     );
   }
@@ -238,7 +238,7 @@ function RunningSession({ kind }: { kind: string | null }) {
     return (
       <div className="min-h-dvh">
         <Hud />
-        <div className="grid place-items-center gap-4 py-32 text-center text-slate-400">
+        <div className="grid place-items-center gap-4 py-32 text-center text-slate-500">
           <p>Пока нечего повторять — сыграй обычную сессию.</p>
           <Link href="/chinese" className="btn-primary px-6 py-3 text-sm">
             К 中文
@@ -258,7 +258,7 @@ function RunningSession({ kind }: { kind: string | null }) {
 
       <main className="mx-auto w-full max-w-2xl px-4 pb-16 pt-6 sm:px-6">
         <div className="mb-4">
-          <div className="mb-2 flex items-center justify-between text-sm text-slate-400">
+          <div className="mb-2 flex items-center justify-between text-sm text-slate-500">
             <span className="font-bold">{MODE_LABELS[question.mode]}</span>
             <span className="flex items-center gap-2">
               <span
@@ -295,12 +295,12 @@ function RunningSession({ kind }: { kind: string | null }) {
               {/* Пиньинь — мост между знаком и звуком; на раннем этапе он виден
                   всегда, кроме задания, где его как раз и нужно выбрать. */}
               {question.mode === 'character-to-meaning' && (
-                <span className="mt-3 block text-2xl text-amber-300">{character.pinyin}</span>
+                <span className="mt-3 block text-2xl text-amber-600">{character.pinyin}</span>
               )}
             </button>
           ) : question.mode === 'pinyin-to-character' ? (
             <button type="button" onClick={() => speakPinyin(character.pinyin)}>
-              <span className="block text-6xl font-extrabold text-amber-300">
+              <span className="block text-6xl font-extrabold text-amber-600">
                 {character.pinyin}
               </span>
               <span className="mt-3 block text-3xl">🔊</span>
@@ -345,7 +345,7 @@ function RunningSession({ kind }: { kind: string | null }) {
                       ? 'text-5xl font-extrabold'
                       : question.mode === 'character-to-meaning'
                         ? 'text-xl font-bold'
-                        : 'text-3xl font-extrabold text-amber-200'
+                        : 'text-3xl font-extrabold text-amber-700'
                   }
                 >
                   {option}
@@ -355,9 +355,9 @@ function RunningSession({ kind }: { kind: string | null }) {
                     🔊
                   </span>
                 )}
-                {revealed && isAnswer && <span className="text-xl text-emerald-300">✓</span>}
+                {revealed && isAnswer && <span className="text-xl text-emerald-600">✓</span>}
                 {revealed && isChosen && !isAnswer && (
-                  <span className="text-xl text-rose-300">✗</span>
+                  <span className="text-xl text-rose-600">✗</span>
                 )}
               </button>
             );
@@ -376,15 +376,15 @@ function RunningSession({ kind }: { kind: string | null }) {
             >
               <p
                 className={`text-lg font-extrabold ${
-                  phase === 'right' ? 'text-emerald-300' : 'text-rose-300'
+                  phase === 'right' ? 'text-emerald-600' : 'text-rose-600'
                 }`}
               >
                 {phase === 'right' ? '✓ Верно!' : '✗ Не то'}
               </p>
 
               <p className="mt-2 text-5xl font-extrabold">{character.character}</p>
-              <p className="text-2xl text-amber-300">{character.pinyin}</p>
-              <p className="text-sm text-slate-400">{character.meaningRu}</p>
+              <p className="text-2xl text-amber-600">{character.pinyin}</p>
+              <p className="text-sm text-slate-500">{character.meaningRu}</p>
 
               {/* Послушать ещё раз — и сравнить со своим вариантом. */}
               <div className="mt-3 flex flex-wrap justify-center gap-2">
@@ -458,10 +458,10 @@ function Results({
           <p className="mt-3 text-4xl font-extrabold">
             {correct} / {total}
           </p>
-          <p className="text-sm text-slate-400">{accuracy}% accuracy</p>
+          <p className="text-sm text-slate-500">{accuracy}% accuracy</p>
 
           <div className="mt-5 flex justify-center gap-2 text-sm font-extrabold">
-            <span className="rounded-full bg-amber-400/15 px-4 py-1.5 text-amber-200">
+            <span className="rounded-full bg-amber-400/15 px-4 py-1.5 text-amber-700">
               ⭐ +{xp} XP
             </span>
             <span className="rounded-full bg-emerald-400/15 px-4 py-1.5 text-emerald-200">
@@ -483,12 +483,12 @@ function Results({
                     >
                       <span className="text-3xl font-extrabold">{char.character}</span>
                       <div className="min-w-0 flex-1 text-sm">
-                        <p className="font-extrabold text-amber-300">{char.pinyin}</p>
+                        <p className="font-extrabold text-amber-600">{char.pinyin}</p>
                         <p className="text-xs text-slate-500">{char.meaningRu}</p>
                       </div>
                       <div className="text-right text-xs">
-                        <p className="text-rose-300">{miss.selected}</p>
-                        <p className="text-emerald-300">{miss.correct}</p>
+                        <p className="text-rose-600">{miss.selected}</p>
+                        <p className="text-emerald-600">{miss.correct}</p>
                       </div>
                     </li>
                   );

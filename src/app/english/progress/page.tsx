@@ -50,7 +50,7 @@ export default function EnglishProgressPage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-4xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/english" className="text-sm text-slate-500 hover:text-white">
+        <Link href="/english" className="text-sm text-slate-500 hover:text-ink">
           ← English
         </Link>
 
@@ -128,7 +128,7 @@ export default function EnglishProgressPage() {
               className={`rounded-lg px-3 py-1.5 text-sm font-bold transition ${
                 category === 'all'
                   ? 'bg-accent text-white'
-                  : 'border border-line bg-ink-800 text-slate-400 hover:text-white'
+                  : 'border border-line bg-ink-800 text-slate-500 hover:text-ink'
               }`}
             >
               Все
@@ -143,7 +143,7 @@ export default function EnglishProgressPage() {
                   className={`rounded-lg px-3 py-1.5 text-sm font-bold transition ${
                     category === id
                       ? 'bg-accent text-white'
-                      : 'border border-line bg-ink-800 text-slate-400 hover:text-white'
+                      : 'border border-line bg-ink-800 text-slate-500 hover:text-ink'
                   }`}
                 >
                   {CATEGORY_LABELS[id]}{' '}
@@ -210,7 +210,7 @@ function Bar({
     <div>
       <div className="flex items-baseline justify-between text-sm">
         <span className="font-extrabold">{label}</span>
-        <span className="text-slate-400">
+        <span className="text-slate-500">
           {value} / {total}
         </span>
       </div>

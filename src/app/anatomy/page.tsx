@@ -33,14 +33,14 @@ export default function AnatomyPage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-3xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/learn" className="text-sm text-slate-500 hover:text-white">
+        <Link href="/learn" className="text-sm text-slate-500 hover:text-ink">
           ← Все направления
         </Link>
 
         <section className="mt-6 text-center">
           <AnatomyFigure region="skeleton" className="mx-auto h-48" priority />
           <h1 className="mt-3 text-4xl font-extrabold">Анатомия</h1>
-          <p className="mt-2 text-slate-400">Изучай человеческое тело шаг за шагом.</p>
+          <p className="mt-2 text-slate-500">Изучай человеческое тело шаг за шагом.</p>
         </section>
 
         <section className="mt-8 space-y-3">
@@ -65,7 +65,7 @@ export default function AnatomyPage() {
                     </h2>
                     <p className="text-xs text-slate-500">{system.subtitleRu}</p>
                   </div>
-                  <span className="text-sm font-extrabold text-slate-300">
+                  <span className="text-sm font-extrabold text-slate-500">
                     {learned} / {structures.length}
                   </span>
                 </div>

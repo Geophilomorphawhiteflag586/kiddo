@@ -29,7 +29,7 @@ test('копия содержит все профили и их прогресс
   const state = played('Ян', 'yan');
   const backup = buildBackup(state, NOW);
 
-  assert.equal(backup.app, 'mapapp');
+  assert.equal(backup.app, 'kiddo');
   assert.ok(backup.profiles.yan);
   assert.ok(backup.data.yan.xp > 0);
   assert.equal(backup.exportedAt, new Date(NOW).toISOString());
@@ -43,7 +43,7 @@ test('копия переживает JSON-сериализацию', () => {
 });
 
 test('чужой или битый файл отклоняется с понятным сообщением', () => {
-  for (const bad of [null, 42, {}, { app: 'other' }, { app: 'mapapp' }]) {
+  for (const bad of [null, 42, {}, { app: 'other' }, { app: 'kiddo' }]) {
     assert.throws(() => parseBackup(bad), BackupError);
   }
 });
@@ -141,4 +141,14 @@ test('пустота профиля определяется по всем мо�
     avgMs: 1000,
   };
   assert.equal(isEmptyProfileData(withChinese), false, 'китайский тоже считается');
+});
+
+test('копия из времён MapApp по-прежнему открывается', () => {
+  // Приложение переименовано в Kiddo, но у пользователей остались файлы со
+  // старой меткой — потерять на этом прогресс нельзя.
+  const legacy = { ...buildBackup(played('Аяна', 'p1')), app: 'mapapp' };
+  const parsed = parseBackup(JSON.parse(JSON.stringify(legacy)));
+  assert.equal(parsed.app, 'kiddo');
+  assert.equal(parsed.profiles.p1?.name, 'Аяна');
+  assert.ok(parsed.data.p1, 'прогресс профиля потерян');
 });

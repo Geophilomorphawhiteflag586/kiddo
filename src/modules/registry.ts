@@ -1,5 +1,5 @@
 /**
- * Реестр учебных направлений MapApp. Learning Hub рисуется из этого списка —
+ * Реестр учебных направлений Kiddo. Learning Hub рисуется из этого списка —
  * добавление нового модуля не требует правки страницы.
  *
  * География и флаги живут в текущих маршрутах (`/`, `/play/*`, `/progress`) и
@@ -32,6 +32,10 @@ export interface LearningModule {
   /** Дополнительная строка под темами (например, «1000+ задач»). */
   note?: string;
   accent: string;
+  /** Градиент карточки в Learning Hub: от левого верхнего угла к правому нижнему. */
+  gradient: [string, string];
+  /** Короткая подпись на карточке — под названием направления. */
+  tagline: string;
 }
 
 export const LEARNING_MODULES: LearningModule[] = [
@@ -39,6 +43,8 @@ export const LEARNING_MODULES: LearningModule[] = [
     // Флаги — не отдельное направление, а один из навыков географии:
     // они живут в тех же режимах и в той же карточке страны.
     id: 'geography',
+    gradient: ['#1d6fd8', '#0e3f8f'],
+    tagline: 'Страны, флаги, столицы',
     title: 'География',
     subtitle: 'Страны, флаги и столицы на интерактивном глобусе',
     emoji: '🌍',
@@ -52,6 +58,8 @@ export const LEARNING_MODULES: LearningModule[] = [
   },
   {
     id: 'mathematics',
+    gradient: ['#f5642d', '#c01f4a'],
+    tagline: 'Сложение и устный счёт',
     title: 'Математика',
     subtitle: 'Устный счёт короткими сессиями',
     emoji: '➕',
@@ -64,6 +72,8 @@ export const LEARNING_MODULES: LearningModule[] = [
   },
   {
     id: 'english',
+    gradient: ['#4f46e5', '#7c3aed'],
+    tagline: 'Английский язык',
     title: 'English',
     subtitle: 'Английские слова через картинки',
     emoji: '🇬🇧',
@@ -77,6 +87,8 @@ export const LEARNING_MODULES: LearningModule[] = [
   },
   {
     id: 'chinese',
+    gradient: ['#b02a6b', '#5b1b52'],
+    tagline: 'Иероглифы, пиньинь',
     title: '中文',
     subtitle: 'Иероглифы, пиньинь и тоны',
     emoji: '🇨🇳',
@@ -90,6 +102,8 @@ export const LEARNING_MODULES: LearningModule[] = [
   },
   {
     id: 'anatomy',
+    gradient: ['#3f4756', '#12161f'],
+    tagline: 'Тело человека',
     title: 'Анатомия',
     subtitle: 'Тело человека: узнать, найти, назвать',
     emoji: '🫀',
@@ -103,6 +117,8 @@ export const LEARNING_MODULES: LearningModule[] = [
   },
   {
     id: 'chess',
+    gradient: ['#6b4b2a', '#2f1f12'],
+    tagline: 'Мат в 1 ход',
     title: 'Шахматы',
     subtitle: 'Мат в 1 ход — тренажёр мышления',
     emoji: '♟️',
@@ -121,3 +137,11 @@ export const LEARNING_MODULES: LearningModule[] = [
  * предметное наполнение шагов.
  */
 export const LEARNING_LOOP = ['Learn', 'Practice', 'Test', 'Master', 'Compete'] as const;
+
+/** Та же петля по-русски — её видно на главной странице направлений. */
+export const LEARNING_LOOP_RU = [
+  'Учись',
+  'Практикуй',
+  'Проверяй',
+  'Совершенствуйся',
+] as const;

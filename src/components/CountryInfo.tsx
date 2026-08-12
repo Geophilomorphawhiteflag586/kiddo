@@ -66,7 +66,7 @@ export default function CountryInfo({ code, onClose }: Props) {
     .slice(0, 3);
 
   return (
-    <aside className="panel animate-pop max-h-[80vh] w-full max-w-md overflow-y-auto p-5 text-slate-100">
+    <aside className="panel animate-pop max-h-[80vh] w-full max-w-md overflow-y-auto p-5 text-ink">
       {/* Шапка */}
       <div className="flex items-start gap-3">
         <FlagImage code={code} size={44} />
@@ -75,12 +75,12 @@ export default function CountryInfo({ code, onClose }: Props) {
             {country.name}
             <SpeakButton text={country.name} lang="ru-RU" />
           </h2>
-          <p className="truncate text-xs text-slate-400">{country.nameEn}</p>
+          <p className="truncate text-xs text-slate-500">{country.nameEn}</p>
         </div>
         <button
           onClick={onClose}
           aria-label="Закрыть"
-          className="rounded-full px-2 py-1 text-slate-400 transition hover:bg-white/10 hover:text-white"
+          className="rounded-full px-2 py-1 text-slate-500 transition hover:bg-white/10 hover:text-ink"
         >
           ✕
         </button>
@@ -131,7 +131,7 @@ export default function CountryInfo({ code, onClose }: Props) {
               <li key={skill} className="text-sm">
                 <div className="flex items-center gap-2">
                   <SkillIcon skill={skill} />
-                  <span className="min-w-0 flex-1 truncate text-slate-300">
+                  <span className="min-w-0 flex-1 truncate text-slate-500">
                     {SKILL_META[skill].label}
                   </span>
                   <span
@@ -162,7 +162,7 @@ export default function CountryInfo({ code, onClose }: Props) {
               <ul className="space-y-1 text-sm">
                 {upcoming.map(({ skill, card }) => (
                   <li key={skill} className="flex items-center justify-between gap-2">
-                    <span className="flex items-center gap-1.5 text-slate-400">
+                    <span className="flex items-center gap-1.5 text-slate-500">
                       <SkillIcon skill={skill} />
                       {SKILL_META[skill].short}
                     </span>

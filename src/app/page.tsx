@@ -82,7 +82,7 @@ export default function Home() {
                   <button
                     onClick={() => setSelected(null)}
                     aria-label="Закрыть"
-                    className="rounded-full px-2 text-slate-500 transition hover:bg-white/10 hover:text-white"
+                    className="rounded-full px-2 text-slate-500 transition hover:bg-white/10 hover:text-ink"
                   >
                     ✕
                   </button>
@@ -103,7 +103,7 @@ export default function Home() {
             ) : (
               <section className="panel p-4">
                 <p className="panel-title mb-2">Глобус</p>
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-slate-500">
                   Нажми на страну, чтобы увидеть её карточку и уровень освоения каждого навыка.
                 </p>
               </section>
@@ -129,7 +129,7 @@ export default function Home() {
                     </span>
                     {mode.title}
                     {mode.slug === 'outline' && (
-                      <span className="ml-auto rounded-full bg-accent/25 px-2 py-0.5 text-[10px] font-extrabold uppercase text-violet-300">
+                      <span className="ml-auto rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-extrabold uppercase text-violet-700">
                         новый
                       </span>
                     )}
@@ -141,7 +141,7 @@ export default function Home() {
 
           {/* Центр: глобус */}
           <div className="order-1 lg:order-2">
-            <div className="panel relative h-[52vh] min-h-[380px] overflow-hidden lg:h-[calc(100dvh-8.5rem)]">
+            <div className="panel globe-stage relative h-[52vh] min-h-[380px] overflow-hidden lg:h-[calc(100dvh-8.5rem)]">
               <GlobeView
                 colorFor={colorFor}
                 raised={raised}
@@ -165,7 +165,7 @@ export default function Home() {
                 {LEGEND.map((item) => (
                   <li key={item.level} className="flex items-center gap-2.5 text-sm">
                     <span className="h-3 w-3 rounded-full" style={{ background: item.color }} />
-                    <span className="text-slate-300">{item.label}</span>
+                    <span className="text-slate-500">{item.label}</span>
                   </li>
                 ))}
               </ul>
@@ -220,9 +220,9 @@ export default function Home() {
                         <span aria-hidden>{continent.emoji}</span>
                         {continent.name}
                       </span>
-                      <span className="text-sm font-extrabold text-slate-300">{percent}%</span>
+                      <span className="text-sm font-extrabold text-slate-500">{percent}%</span>
                     </div>
-                    <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-ink-950">
+                    <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-ink-700">
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-accent to-sky-400 transition-[width] duration-500"
                         style={{ width: `${percent}%` }}
@@ -238,13 +238,13 @@ export default function Home() {
                             setSelected(null);
                             setFocus(continent.view);
                           }}
-                          className="font-bold transition hover:text-white"
+                          className="font-bold transition hover:text-ink"
                         >
                           Показать
                         </button>
                         <Link
                           href={`/play/flag?continent=${continent.id}`}
-                          className="font-bold text-accent transition hover:text-violet-300"
+                          className="font-bold text-accent transition hover:text-violet-800"
                         >
                           Играть
                         </Link>

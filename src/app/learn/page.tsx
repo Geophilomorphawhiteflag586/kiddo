@@ -20,7 +20,7 @@ import { TOTAL_WORDS } from '@/modules/english/words';
 import { additionMastery } from '@/modules/mathematics/mastery';
 import { normalizeMathProgress } from '@/modules/mathematics/progress';
 import {
-  LEARNING_LOOP,
+  LEARNING_LOOP_RU,
   LEARNING_MODULES,
   type LearningModule,
   type ProgressKind,
@@ -72,29 +72,21 @@ export default function LearnPage() {
     <div className="min-h-dvh">
       <Hud />
 
-      <main className="mx-auto w-full max-w-6xl px-4 pb-20 pt-10 sm:px-6">
-        <section className="text-center">
-          <p className="text-sm font-extrabold tracking-[0.3em] text-slate-500">MAPAPP</p>
-          <h1 className="mt-3 text-balance text-4xl font-extrabold sm:text-5xl">
+      <main className="mx-auto w-full max-w-[1400px] px-4 pb-24 pt-4 sm:px-6">
+        <section>
+          <h1 className="text-balance text-4xl font-extrabold leading-[1.1] sm:text-5xl">
             Learn anything.
             <br />
             <span className="text-accent">One skill at a time.</span>
           </h1>
-          <div className="mt-5 flex flex-wrap justify-center gap-2">
-            {LEARNING_LOOP.map((step) => (
-              <span
-                key={step}
-                className="rounded-full border border-line bg-ink-800 px-3 py-1 text-xs font-bold text-slate-400"
-              >
-                {step}
-              </span>
-            ))}
-          </div>
+          <p className="mt-3 text-sm font-bold text-slate-500">
+            {LEARNING_LOOP_RU.join(' • ')}
+          </p>
         </section>
 
-        <h2 className="mb-4 mt-12 text-xl font-extrabold">Что будем изучать?</h2>
+        <h2 className="mb-4 mt-9 text-xl font-extrabold">Что будем изучать?</h2>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {LEARNING_MODULES.map((module) => (
             <ModuleCard
               key={module.id}
@@ -110,71 +102,43 @@ export default function LearnPage() {
 
 function ModuleCard({ module, percent }: { module: LearningModule; percent: number }) {
   const soon = module.status === 'soon';
+  const [from, to] = module.gradient;
 
   const body = (
     <>
-      <div className="flex items-start gap-3">
-        <span
-          aria-hidden
-          className="grid h-12 w-12 shrink-0 place-items-center rounded-xl text-2xl"
-          style={{ background: `${module.accent}22` }}
-        >
-          {module.emoji}
-        </span>
-        <div className="min-w-0 flex-1">
-          <h3 className="text-lg font-extrabold">{module.title}</h3>
-          <p className="truncate text-xs text-slate-500">{module.subtitle}</p>
-        </div>
-        {soon && (
-          <span className="shrink-0 rounded-full border border-line bg-ink-700 px-2.5 py-1 text-[10px] font-extrabold uppercase text-slate-400">
-            Скоро
-          </span>
-        )}
-      </div>
+      {/* Крупный знак направления — он же фон карточки. */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -right-4 -top-6 select-none text-[7rem] leading-none opacity-25 drop-shadow-lg"
+      >
+        {module.emoji}
+      </span>
 
-      <ul className="mt-4 space-y-1 text-sm text-slate-400">
-        {module.topics.map((topic) => (
-          <li key={topic} className="flex items-center gap-2">
-            <span aria-hidden className="h-1 w-1 rounded-full" style={{ background: module.accent }} />
-            {topic}
-          </li>
-        ))}
-      </ul>
+      <div className="relative flex h-full flex-col p-5">
+        <h3 className="text-2xl font-extrabold">{module.title}</h3>
+        <p className="mt-0.5 text-sm font-semibold text-white/70">{module.tagline}</p>
 
-      {module.note && <p className="mt-3 text-xs font-bold text-slate-500">{module.note}</p>}
-
-      {!soon && module.progress !== 'none' && (
-        <div className="mt-4">
-          <div className="mb-1 flex items-baseline justify-between text-xs">
-            <span className="text-slate-500">Ваш прогресс</span>
-            <span className="font-extrabold" style={{ color: module.accent }}>
-              {percent}%
-            </span>
+        <div className="mt-auto pt-16">
+          <div className="mb-2 flex items-baseline justify-between text-xs font-extrabold">
+            <span className="text-white/70">{module.note ?? ''}</span>
+            <span>{soon ? 'Скоро' : `${percent}%`}</span>
           </div>
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-ink-700">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-black/25">
             <div
-              className="h-full rounded-full transition-[width] duration-500"
-              style={{ width: `${percent}%`, background: module.accent }}
+              className="h-full rounded-full bg-white transition-[width] duration-500"
+              style={{ width: soon ? '0%' : `${percent}%` }}
             />
           </div>
         </div>
-      )}
-
-      <div className="mt-5">
-        {soon ? (
-          <span className="block rounded-xl border border-line bg-ink-700/50 px-4 py-2.5 text-center text-sm font-bold text-slate-500">
-            Coming soon
-          </span>
-        ) : (
-          <span className="btn-primary block px-4 py-2.5 text-center text-sm">{module.cta}</span>
-        )}
       </div>
     </>
   );
 
+  const style = { '--from': from, '--to': to } as React.CSSProperties;
+
   if (soon) {
     return (
-      <div className="panel p-5 opacity-70" aria-disabled>
+      <div className="tile tile-soon min-h-52" style={style} aria-disabled>
         {body}
       </div>
     );
@@ -183,7 +147,8 @@ function ModuleCard({ module, percent }: { module: LearningModule; percent: numb
   return (
     <Link
       href={module.href}
-      className="panel p-5 transition hover:-translate-y-0.5 hover:border-accent/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+      style={style}
+      className="tile min-h-52 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
     >
       {body}
     </Link>
