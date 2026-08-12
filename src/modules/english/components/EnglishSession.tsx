@@ -30,7 +30,7 @@ export default function EnglishSession() {
     return (
       <div className="min-h-dvh">
         <Hud />
-        <div className="grid place-items-center py-32 text-slate-500">Loading…</div>
+        <div className="grid place-items-center py-32 text-slate-400">Loading…</div>
       </div>
     );
   }
@@ -185,7 +185,7 @@ function RunningSession({ kind }: { kind: string | null }) {
     return (
       <div className="min-h-dvh">
         <Hud />
-        <div className="grid place-items-center gap-4 py-32 text-center text-slate-500">
+        <div className="grid place-items-center gap-4 py-32 text-center text-slate-400">
           <p>Пока нечего повторять — сыграй обычную сессию.</p>
           <Link href="/english" className="btn-primary px-6 py-3 text-sm">
             К English
@@ -205,7 +205,7 @@ function RunningSession({ kind }: { kind: string | null }) {
 
       <main className="mx-auto w-full max-w-2xl px-4 pb-16 pt-6 sm:px-6">
         <div className="mb-4">
-          <div className="mb-2 flex items-center justify-between text-sm text-slate-500">
+          <div className="mb-2 flex items-center justify-between text-sm text-slate-400">
             <span className="font-bold">{MODE_LABELS[question.mode]}</span>
             <span>
               {index + 1} / {questions.length}
@@ -280,9 +280,9 @@ function RunningSession({ kind }: { kind: string | null }) {
                     {option.word}
                   </span>
                 )}
-                {revealed && isAnswer && <span className="text-xl text-emerald-600">✓</span>}
+                {revealed && isAnswer && <span className="text-xl text-emerald-300">✓</span>}
                 {revealed && isChosen && !isAnswer && (
-                  <span className="text-xl text-rose-600">✗</span>
+                  <span className="text-xl text-rose-300">✗</span>
                 )}
               </button>
             );
@@ -301,7 +301,7 @@ function RunningSession({ kind }: { kind: string | null }) {
             >
               <p
                 className={`text-xl font-extrabold ${
-                  phase === 'right' ? 'text-emerald-600' : 'text-rose-600'
+                  phase === 'right' ? 'text-emerald-300' : 'text-rose-300'
                 }`}
               >
                 {phase === 'right' ? '✓ Correct!' : '✗ Not quite'}
@@ -310,7 +310,7 @@ function RunningSession({ kind }: { kind: string | null }) {
               <p className="mt-2 flex items-center justify-center gap-2 text-2xl font-extrabold uppercase">
                 <WordVisual word={word} size={32} /> {word.word}
               </p>
-              <p className="text-sm text-slate-500">{word.translationRu}</p>
+              <p className="text-sm text-slate-400">{word.translationRu}</p>
 
               <div className="mt-3 flex flex-wrap justify-center gap-2">
                 <button
@@ -332,7 +332,7 @@ function RunningSession({ kind }: { kind: string | null }) {
               <button onClick={advance} autoFocus className="btn-primary mt-4 px-10 py-3">
                 Next →
               </button>
-              <p className="mt-2 text-xs text-slate-600">
+              <p className="mt-2 text-xs text-slate-500">
                 Listen as long as you need · Enter or Space to continue
               </p>
             </div>
@@ -340,7 +340,7 @@ function RunningSession({ kind }: { kind: string | null }) {
         </div>
 
         <div className="mt-4 text-center">
-          <Link href="/english" className="text-sm text-slate-500 hover:underline">
+          <Link href="/english" className="text-sm text-slate-400 hover:underline">
             Выйти
           </Link>
         </div>
@@ -379,10 +379,10 @@ function Results({
           <p className="mt-3 text-4xl font-extrabold">
             {correct} / {total}
           </p>
-          <p className="text-sm text-slate-500">{accuracy}% accuracy</p>
+          <p className="text-sm text-slate-400">{accuracy}% accuracy</p>
 
           <div className="mt-5 flex justify-center gap-2 text-sm font-extrabold">
-            <span className="rounded-full bg-amber-400/15 px-4 py-1.5 text-amber-700">
+            <span className="rounded-full bg-amber-400/15 px-4 py-1.5 text-amber-200">
               ⭐ +{xp} XP
             </span>
             <span className="rounded-full bg-emerald-400/15 px-4 py-1.5 text-emerald-200">
@@ -405,9 +405,9 @@ function Results({
                     >
                       <WordVisual word={target} size={32} />
                       <div className="min-w-0 flex-1 text-sm">
-                        <p className="font-extrabold uppercase text-emerald-600">{target.word}</p>
-                        <p className="text-xs text-slate-500">
-                          Ваш ответ: <span className="uppercase text-rose-600">{picked.word}</span>
+                        <p className="font-extrabold uppercase text-emerald-300">{target.word}</p>
+                        <p className="text-xs text-slate-400">
+                          Ваш ответ: <span className="uppercase text-rose-300">{picked.word}</span>
                         </p>
                       </div>
                     </li>

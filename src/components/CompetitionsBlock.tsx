@@ -33,19 +33,19 @@ export default function CompetitionsBlock() {
 
       <div className="grid gap-3 sm:grid-cols-3">
         <div className="rounded-xl border border-line bg-ink-700/40 p-3.5">
-          <p className="text-xs text-slate-500">Ваш Skill Score</p>
+          <p className="text-xs text-slate-400">Ваш Skill Score</p>
           {profile.account && sync ? (
             <>
               <p className="mt-1 text-2xl font-extrabold text-accent">
                 {fmt(sync.skillScore.totalScore)}
               </p>
-              <p className="mt-0.5 text-xs text-slate-500">
+              <p className="mt-0.5 text-xs text-slate-400">
                 All-time позиция: {fmt(sync.position)} из {fmt(sync.totalPlayers)}
               </p>
             </>
           ) : (
             <>
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-slate-400">
                 Создайте никнейм, чтобы попасть в глобальный рейтинг.
               </p>
               <Link href="/leaderboard" className="btn-primary mt-2 inline-block px-4 py-1.5 text-xs">
@@ -56,15 +56,15 @@ export default function CompetitionsBlock() {
         </div>
 
         <div className="rounded-xl border border-line bg-ink-700/40 p-3.5">
-          <p className="text-xs text-slate-500">Ваш PvP рейтинг</p>
+          <p className="text-xs text-slate-400">Ваш PvP рейтинг</p>
           <p className="mt-1 text-2xl font-extrabold">Без ранга</p>
-          <p className="mt-0.5 text-xs text-slate-500">Дуэли 1 на 1 с ELO — этап 2</p>
+          <p className="mt-0.5 text-xs text-slate-400">Дуэли 1 на 1 с ELO — этап 2</p>
         </div>
 
         <div className="rounded-xl border border-line bg-ink-700/40 p-3.5">
-          <p className="text-xs text-slate-500">Daily Battle Royale</p>
+          <p className="text-xs text-slate-400">Daily Battle Royale</p>
           <p className="mt-1 text-2xl font-extrabold">Скоро</p>
-          <p className="mt-0.5 text-xs text-slate-500">
+          <p className="mt-0.5 text-xs text-slate-400">
             100 игроков · 20 вопросов · этап 3.{' '}
             <Link href="/leaderboard" className="text-accent hover:underline">
               Подробнее

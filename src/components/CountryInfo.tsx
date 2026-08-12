@@ -75,12 +75,12 @@ export default function CountryInfo({ code, onClose }: Props) {
             {country.name}
             <SpeakButton text={country.name} lang="ru-RU" />
           </h2>
-          <p className="truncate text-xs text-slate-500">{country.nameEn}</p>
+          <p className="truncate text-xs text-slate-400">{country.nameEn}</p>
         </div>
         <button
           onClick={onClose}
           aria-label="Закрыть"
-          className="rounded-full px-2 py-1 text-slate-500 transition hover:bg-white/10 hover:text-ink"
+          className="rounded-full px-2 py-1 text-slate-400 transition hover:bg-white/10 hover:text-ink"
         >
           ✕
         </button>
@@ -91,22 +91,22 @@ export default function CountryInfo({ code, onClose }: Props) {
         <div className="flex flex-col items-start gap-3">
           <dl className="space-y-2 text-sm">
             <div>
-              <dt className="text-xs text-slate-500">Столица</dt>
+              <dt className="text-xs text-slate-400">Столица</dt>
               <dd className="font-bold">{country.capital}</dd>
             </div>
             <div>
-              <dt className="text-xs text-slate-500">Континент</dt>
+              <dt className="text-xs text-slate-400">Континент</dt>
               <dd className="font-bold">{continent?.name ?? '—'}</dd>
             </div>
             {profile.ageMode !== 'kid' && (
               <div>
-                <dt className="text-xs text-slate-500">Языки</dt>
+                <dt className="text-xs text-slate-400">Языки</dt>
                 <dd className="max-w-36 text-sm font-bold">{country.languages.join(', ') || '—'}</dd>
               </div>
             )}
             {profile.ageMode === 'adult' && (
               <div>
-                <dt className="text-xs text-slate-500">Валюта</dt>
+                <dt className="text-xs text-slate-400">Валюта</dt>
                 <dd className="font-bold">{country.currency || '—'}</dd>
               </div>
             )}
@@ -131,7 +131,7 @@ export default function CountryInfo({ code, onClose }: Props) {
               <li key={skill} className="text-sm">
                 <div className="flex items-center gap-2">
                   <SkillIcon skill={skill} />
-                  <span className="min-w-0 flex-1 truncate text-slate-500">
+                  <span className="min-w-0 flex-1 truncate text-slate-400">
                     {SKILL_META[skill].label}
                   </span>
                   <span
@@ -162,7 +162,7 @@ export default function CountryInfo({ code, onClose }: Props) {
               <ul className="space-y-1 text-sm">
                 {upcoming.map(({ skill, card }) => (
                   <li key={skill} className="flex items-center justify-between gap-2">
-                    <span className="flex items-center gap-1.5 text-slate-500">
+                    <span className="flex items-center gap-1.5 text-slate-400">
                       <SkillIcon skill={skill} />
                       {SKILL_META[skill].short}
                     </span>

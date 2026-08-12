@@ -35,7 +35,7 @@ export default function AnatomyProgressPage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-4xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/anatomy" className="text-sm text-slate-500 hover:text-ink">
+        <Link href="/anatomy" className="text-sm text-slate-400 hover:text-ink">
           ← Анатомия
         </Link>
 
@@ -62,7 +62,7 @@ export default function AnatomyProgressPage() {
             <div key={skill}>
               <div className="flex items-baseline justify-between text-sm">
                 <span className="font-extrabold">{SKILL_META[skill].label}</span>
-                <span className="text-slate-500">{hydrated ? summary.bySkill[skill] : 0}%</span>
+                <span className="text-slate-400">{hydrated ? summary.bySkill[skill] : 0}%</span>
               </div>
               <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-ink-700">
                 <div
@@ -75,7 +75,7 @@ export default function AnatomyProgressPage() {
               </div>
             </div>
           ))}
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-400">
             Низкое «Расположение» при высоком «Название» значит, что ребёнок знает термин,
             но пока плохо представляет, где структура находится.
           </p>
@@ -85,7 +85,7 @@ export default function AnatomyProgressPage() {
           <section className="panel p-5">
             <p className="panel-title mb-3">Слабые структуры</p>
             {weak.length === 0 ? (
-              <p className="text-sm text-slate-500">Пока нет ошибок.</p>
+              <p className="text-sm text-slate-400">Пока нет ошибок.</p>
             ) : (
               <ul className="space-y-1.5">
                 {weak.map((id) => {
@@ -113,15 +113,15 @@ export default function AnatomyProgressPage() {
           <section className="panel p-5">
             <p className="panel-title mb-3">Что путается</p>
             {pairs.length === 0 ? (
-              <p className="text-sm text-slate-500">Пока ничего не путается.</p>
+              <p className="text-sm text-slate-400">Пока ничего не путается.</p>
             ) : (
               <ul className="space-y-1.5 text-sm">
                 {pairs.map((pair) => (
                   <li key={`${pair.a}-${pair.b}`} className="flex items-center gap-2">
                     <span className="font-bold">{getStructure(pair.a)?.nameRu}</span>
-                    <span className="text-slate-600">↔</span>
+                    <span className="text-slate-500">↔</span>
                     <span className="font-bold">{getStructure(pair.b)?.nameRu}</span>
-                    <span className="ml-auto text-xs text-slate-500">{pair.count}×</span>
+                    <span className="ml-auto text-xs text-slate-400">{pair.count}×</span>
                   </li>
                 ))}
               </ul>
@@ -188,7 +188,7 @@ export default function AnatomyProgressPage() {
 function Tile({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="panel p-4">
-      <p className="text-xs text-slate-500">{label}</p>
+      <p className="text-xs text-slate-400">{label}</p>
       <p className="mt-1 text-xl font-extrabold">{value}</p>
     </div>
   );

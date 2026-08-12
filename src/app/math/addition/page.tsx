@@ -19,12 +19,12 @@ export default function AdditionPage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-3xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/math" className="text-sm text-slate-500 hover:text-ink">
+        <Link href="/math" className="text-sm text-slate-400 hover:text-ink">
           ← Математика
         </Link>
 
         <h1 className="mt-3 text-3xl font-extrabold">Сложение</h1>
-        <p className="mt-1 text-slate-500">
+        <p className="mt-1 text-slate-400">
           Уровень сложности внутри каждого раздела подбирается автоматически.
         </p>
 
@@ -41,7 +41,7 @@ export default function AdditionPage() {
                 <div className="flex flex-wrap items-center gap-3">
                   <div className="min-w-0 flex-1">
                     <h2 className="text-lg font-extrabold">{meta.title}</h2>
-                    <p className="text-xs text-slate-500">Например: {meta.example}</p>
+                    <p className="text-xs text-slate-400">Например: {meta.example}</p>
                   </div>
                   <span
                     className="rounded-full px-3 py-1 text-xs font-extrabold"
@@ -57,9 +57,9 @@ export default function AdditionPage() {
                     style={{ width: `${goalPercent}%`, background: meta.color }}
                   />
                 </div>
-                <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-xs text-slate-500">
+                <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-xs text-slate-400">
                   <span>
-                    <span className="font-extrabold text-slate-500">{stats.correct}</span> / {meta.goal}
+                    <span className="font-extrabold text-slate-400">{stats.correct}</span> / {meta.goal}
                   </span>
                   <span>Точность: {stats.solved ? pct(accuracyOf(stats)) : '—'}</span>
                   <span>

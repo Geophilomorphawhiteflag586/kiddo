@@ -52,7 +52,7 @@ export default function AnatomySession() {
     return (
       <div className="min-h-dvh">
         <Hud />
-        <div className="grid place-items-center py-32 text-slate-500">Загружаем…</div>
+        <div className="grid place-items-center py-32 text-slate-400">Загружаем…</div>
       </div>
     );
   }
@@ -179,7 +179,7 @@ function RunningSession({
     return (
       <div className="min-h-dvh">
         <Hud />
-        <div className="grid place-items-center gap-4 py-32 text-center text-slate-500">
+        <div className="grid place-items-center gap-4 py-32 text-center text-slate-400">
           <p>Пока нечего повторять.</p>
           <Link href="/anatomy" className="btn-primary px-6 py-3 text-sm">
             К анатомии
@@ -200,7 +200,7 @@ function RunningSession({
 
       <main className="mx-auto w-full max-w-2xl px-4 pb-16 pt-6 sm:px-6">
         <div className="mb-4">
-          <div className="mb-2 flex items-center justify-between text-sm text-slate-500">
+          <div className="mb-2 flex items-center justify-between text-sm text-slate-400">
             <span className="font-bold">
               {step.kind === 'learn' ? 'Знакомимся' : MODE_LABELS[step.question!.mode]}
             </span>
@@ -247,7 +247,7 @@ function RunningSession({
                     highlight={structure.id}
                     className="h-48"
                   />
-                  <p className="mt-1 text-[11px] text-slate-500">где находится</p>
+                  <p className="mt-1 text-[11px] text-slate-400">где находится</p>
                 </div>
               </div>
             ) : (
@@ -259,7 +259,7 @@ function RunningSession({
               />
             )}
             <h2 className="mt-4 text-3xl font-extrabold">{structure.nameRu}</h2>
-            <p className="mt-2 text-sm text-slate-500">{structure.factRu}</p>
+            <p className="mt-2 text-sm text-slate-400">{structure.factRu}</p>
             <button
               onClick={() => {
                 markSeen(structure.id);
@@ -308,7 +308,7 @@ function RunningSession({
                 <h1 className="text-center text-xl font-extrabold">
                   Покажи: {structure.nameRu}
                 </h1>
-                <p className="mt-1 text-center text-xs text-slate-500">
+                <p className="mt-1 text-center text-xs text-slate-400">
                   Нажмите на нужное место на изображении
                 </p>
                 <AnatomyFigure
@@ -368,9 +368,9 @@ function RunningSession({
                           sizes="120px"
                         />
                       )}
-                      {revealed && isAnswer && <span className="text-emerald-600">✓</span>}
+                      {revealed && isAnswer && <span className="text-emerald-300">✓</span>}
                       {revealed && isChosen && !isAnswer && (
-                        <span className="text-rose-600">✗</span>
+                        <span className="text-rose-300">✗</span>
                       )}
                     </button>
                   );
@@ -390,15 +390,15 @@ function RunningSession({
                 >
                   <p
                     className={`text-lg font-extrabold ${
-                      phase === 'right' ? 'text-emerald-600' : 'text-rose-600'
+                      phase === 'right' ? 'text-emerald-300' : 'text-rose-300'
                     }`}
                   >
                     {phase === 'right' ? '✓ Правильно' : '✗ Не то'}
                   </p>
                   <p className="mt-1 text-xl font-extrabold">{structure.nameRu}</p>
-                  <p className="text-sm text-slate-500">{structure.factRu}</p>
+                  <p className="text-sm text-slate-400">{structure.factRu}</p>
                   {phase === 'wrong' && chosen && (
-                    <p className="mt-1 text-xs text-slate-500">
+                    <p className="mt-1 text-xs text-slate-400">
                       Вы выбрали: {getStructure(chosen)?.nameRu}
                     </p>
                   )}
@@ -412,7 +412,7 @@ function RunningSession({
         )}
 
         <div className="mt-4 text-center">
-          <Link href="/anatomy" className="text-sm text-slate-500 hover:underline">
+          <Link href="/anatomy" className="text-sm text-slate-400 hover:underline">
             Выйти
           </Link>
         </div>
@@ -448,10 +448,10 @@ function Results({
           <p className="mt-1 text-4xl font-extrabold">
             {correct} / {total}
           </p>
-          <p className="text-sm text-slate-500">{accuracy}% правильных</p>
+          <p className="text-sm text-slate-400">{accuracy}% правильных</p>
 
           <div className="mt-5 flex justify-center gap-2 text-sm font-extrabold">
-            <span className="rounded-full bg-amber-400/15 px-4 py-1.5 text-amber-700">
+            <span className="rounded-full bg-amber-400/15 px-4 py-1.5 text-amber-200">
               +{xp} XP
             </span>
           </div>
@@ -487,7 +487,7 @@ function Results({
                       <div className="min-w-0 flex-1 text-sm">
                         <p className="font-extrabold">{target.nameRu}</p>
                         {picked && (
-                          <p className="text-xs text-slate-500">вы выбрали: {picked.nameRu}</p>
+                          <p className="text-xs text-slate-400">вы выбрали: {picked.nameRu}</p>
                         )}
                       </div>
                     </li>

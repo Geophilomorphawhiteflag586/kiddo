@@ -44,12 +44,12 @@ export default function ChessProgressPage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-4xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/chess" className="text-sm text-slate-500 hover:text-ink">
+        <Link href="/chess" className="text-sm text-slate-400 hover:text-ink">
           ← Шахматы
         </Link>
 
         <h1 className="mt-3 text-3xl font-extrabold">Шахматы · статистика</h1>
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-slate-400">
           Профиль: {profile.name}. Здесь видно не только результат, но и ход мысли.
         </p>
 
@@ -85,7 +85,7 @@ export default function ChessProgressPage() {
             <Tile label="Ход есть, мата нет" value={hydrated ? stats.legalNonMateMoves : 0} />
             <Tile label="Невозможные ходы" value={hydrated ? stats.illegalMoves : 0} />
           </div>
-          <p className="mt-3 text-xs text-slate-500">
+          <p className="mt-3 text-xs text-slate-400">
             Много невозможных ходов — ребёнок ещё не уверен, как ходят фигуры. Много
             легальных ходов без мата — фигуры знает, но не видит матовую сеть.
           </p>
@@ -112,7 +112,7 @@ export default function ChessProgressPage() {
         <section className="mt-6">
           <h2 className="mb-3 text-xl font-extrabold">История решений</h2>
           {recent.length === 0 ? (
-            <p className="panel p-4 text-sm text-slate-500">
+            <p className="panel p-4 text-sm text-slate-400">
               Пока нет ни одной попытки. Как только ребёнок начнёт решать, здесь появится
               полная история каждой задачи.
             </p>
@@ -154,22 +154,22 @@ function PuzzleCard({
         <div className="flex items-center gap-2">
           <span className="font-extrabold">Задача #{record.puzzleId}</span>
           {record.solved ? (
-            <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-bold text-emerald-600">
+            <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-bold text-emerald-300">
               решена
             </span>
           ) : (
-            <span className="rounded-full bg-ink-700 px-2 py-0.5 text-xs font-bold text-slate-500">
+            <span className="rounded-full bg-ink-700 px-2 py-0.5 text-xs font-bold text-slate-400">
               в процессе
             </span>
           )}
           {record.solvedFirstTry && (
-            <span className="rounded-full bg-amber-400/15 px-2 py-0.5 text-xs font-bold text-amber-700">
+            <span className="rounded-full bg-amber-400/15 px-2 py-0.5 text-xs font-bold text-amber-200">
               с первой
             </span>
           )}
           <span className="ml-auto text-xs text-accent">{open ? 'скрыть' : 'разбор'}</span>
         </div>
-        <p className="mt-1 text-xs text-slate-500">
+        <p className="mt-1 text-xs text-slate-400">
           {formatMs(record.timeSpentMs)} · попыток: {record.attempts.length}
           {illegal > 0 ? ` · невозможных: ${illegal}` : ''}
           {notMate > 0 ? ` · без мата: ${notMate}` : ''}
@@ -188,7 +188,7 @@ function PuzzleCard({
 function Tile({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="rounded-xl border border-line bg-ink-700/40 p-3">
-      <p className="text-xs text-slate-500">{label}</p>
+      <p className="text-xs text-slate-400">{label}</p>
       <p className="mt-0.5 text-lg font-extrabold">{value}</p>
     </div>
   );

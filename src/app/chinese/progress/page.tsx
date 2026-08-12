@@ -42,7 +42,7 @@ export default function ChineseProgressPage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-4xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/chinese" className="text-sm text-slate-500 hover:text-ink">
+        <Link href="/chinese" className="text-sm text-slate-400 hover:text-ink">
           ← 中文
         </Link>
 
@@ -65,7 +65,7 @@ export default function ChineseProgressPage() {
             <div key={skill}>
               <div className="flex items-baseline justify-between text-sm">
                 <span className="font-extrabold">{SKILL_META[skill].label}</span>
-                <span className="text-slate-500">
+                <span className="text-slate-400">
                   {hydrated ? summary.bySkill[skill] : 0}%
                 </span>
               </div>
@@ -86,7 +86,7 @@ export default function ChineseProgressPage() {
           <section className="panel p-5">
             <p className="panel-title mb-3">Слабые иероглифы</p>
             {weak.length === 0 ? (
-              <p className="text-sm text-slate-500">Пока нет ошибок.</p>
+              <p className="text-sm text-slate-400">Пока нет ошибок.</p>
             ) : (
               <ul className="space-y-1.5">
                 {weak.map((id) => {
@@ -96,8 +96,8 @@ export default function ChineseProgressPage() {
                   return (
                     <li key={id} className="flex items-center gap-2.5 text-sm">
                       <span className="text-2xl font-extrabold">{char.character}</span>
-                      <span className="text-amber-600">{char.pinyin}</span>
-                      <span className="min-w-0 flex-1 truncate text-xs text-slate-500">
+                      <span className="text-amber-300">{char.pinyin}</span>
+                      <span className="min-w-0 flex-1 truncate text-xs text-slate-400">
                         {char.meaningRu}
                       </span>
                       <span className="font-extrabold" style={{ color: mastery.color }}>
@@ -113,15 +113,15 @@ export default function ChineseProgressPage() {
           <section className="panel p-5">
             <p className="panel-title mb-3">Путаница иероглифов</p>
             {charPairs.length === 0 ? (
-              <p className="text-sm text-slate-500">Пока ничего не путается.</p>
+              <p className="text-sm text-slate-400">Пока ничего не путается.</p>
             ) : (
               <ul className="space-y-1.5">
                 {charPairs.map((pair) => (
                   <li key={`${pair.a}-${pair.b}`} className="flex items-center gap-2 text-sm">
                     <span className="text-2xl font-extrabold">{pair.a}</span>
-                    <span className="text-slate-600">↔</span>
+                    <span className="text-slate-500">↔</span>
                     <span className="text-2xl font-extrabold">{pair.b}</span>
-                    <span className="ml-auto text-xs text-slate-500">{pair.count}×</span>
+                    <span className="ml-auto text-xs text-slate-400">{pair.count}×</span>
                   </li>
                 ))}
               </ul>
@@ -131,15 +131,15 @@ export default function ChineseProgressPage() {
           <section className="panel p-5">
             <p className="panel-title mb-3">Путаница произношений</p>
             {pinyinPairs.length === 0 ? (
-              <p className="text-sm text-slate-500">Тоны пока не путаются.</p>
+              <p className="text-sm text-slate-400">Тоны пока не путаются.</p>
             ) : (
               <ul className="space-y-1.5">
                 {pinyinPairs.map((pair) => (
                   <li key={`${pair.a}-${pair.b}`} className="flex items-center gap-2 text-sm">
-                    <span className="font-extrabold text-amber-600">{pair.a}</span>
-                    <span className="text-slate-600">↔</span>
-                    <span className="font-extrabold text-amber-600">{pair.b}</span>
-                    <span className="ml-auto text-xs text-slate-500">{pair.count}×</span>
+                    <span className="font-extrabold text-amber-300">{pair.a}</span>
+                    <span className="text-slate-500">↔</span>
+                    <span className="font-extrabold text-amber-300">{pair.b}</span>
+                    <span className="ml-auto text-xs text-slate-400">{pair.count}×</span>
                   </li>
                 ))}
               </ul>
@@ -155,7 +155,7 @@ export default function ChineseProgressPage() {
               className={`rounded-lg px-3 py-1.5 text-sm font-bold transition ${
                 category === 'all'
                   ? 'bg-accent text-white'
-                  : 'border border-line bg-ink-800 text-slate-500 hover:text-ink'
+                  : 'border border-line bg-ink-800 text-slate-400 hover:text-ink'
               }`}
             >
               Все
@@ -172,7 +172,7 @@ export default function ChineseProgressPage() {
                   className={`rounded-lg px-3 py-1.5 text-sm font-bold transition ${
                     category === id
                       ? 'bg-accent text-white'
-                      : 'border border-line bg-ink-800 text-slate-500 hover:text-ink'
+                      : 'border border-line bg-ink-800 text-slate-400 hover:text-ink'
                   }`}
                 >
                   {CATEGORY_LABELS[id]}{' '}
@@ -195,8 +195,8 @@ export default function ChineseProgressPage() {
                   >
                     <span className="text-2xl font-extrabold">{char.character}</span>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-bold text-amber-600">{char.pinyin}</p>
-                      <p className="truncate text-[11px] text-slate-500">{char.meaningRu}</p>
+                      <p className="truncate text-sm font-bold text-amber-300">{char.pinyin}</p>
+                      <p className="truncate text-[11px] text-slate-400">{char.meaningRu}</p>
                     </div>
                     <span
                       className="h-2.5 w-2.5 shrink-0 rounded-full"
@@ -217,7 +217,7 @@ export default function ChineseProgressPage() {
 function Tile({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="panel p-4">
-      <p className="text-xs text-slate-500">{label}</p>
+      <p className="text-xs text-slate-400">{label}</p>
       <p className="mt-1 text-xl font-extrabold">{value}</p>
     </div>
   );

@@ -35,7 +35,7 @@ export default function EnglishPage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-3xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/learn" className="text-sm text-slate-500 hover:text-ink">
+        <Link href="/learn" className="text-sm text-slate-400 hover:text-ink">
           ← Все направления
         </Link>
 
@@ -44,7 +44,7 @@ export default function EnglishPage() {
             🇬🇧
           </span>
           <h1 className="mt-3 text-4xl font-extrabold">English</h1>
-          <p className="mt-2 text-slate-500">Learn English through pictures.</p>
+          <p className="mt-2 text-slate-400">Learn English through pictures.</p>
 
           <Link
             href="/english/play"
@@ -59,7 +59,7 @@ export default function EnglishPage() {
             <span className="font-extrabold">
               {learned} / {TOTAL_WORDS} words
             </span>
-            <span className="text-sm font-bold text-emerald-600">{percent}%</span>
+            <span className="text-sm font-bold text-emerald-300">{percent}%</span>
           </div>
           <div className="mt-2 h-3 w-full overflow-hidden rounded-full bg-ink-700">
             <div
@@ -99,7 +99,7 @@ export default function EnglishPage() {
         </section>
 
         <div className="mt-6 text-center">
-          <Link href="/english/progress" className="text-sm text-slate-500 hover:underline">
+          <Link href="/english/progress" className="text-sm text-slate-400 hover:underline">
             Подробный прогресс →
           </Link>
         </div>
@@ -111,7 +111,7 @@ export default function EnglishPage() {
 function Stat({ label, value }: { label: string; value: number }) {
   return (
     <div className="rounded-xl border border-line bg-ink-700/40 p-3">
-      <p className="text-xs text-slate-500">{label}</p>
+      <p className="text-xs text-slate-400">{label}</p>
       <p className="text-xl font-extrabold">{value}</p>
     </div>
   );
@@ -136,7 +136,7 @@ function Card({
         {emoji}
       </span>
       <span className="mt-1 block font-extrabold">{title}</span>
-      <span className="block text-xs text-slate-500">{hint}</span>
+      <span className="block text-xs text-slate-400">{hint}</span>
     </>
   );
 

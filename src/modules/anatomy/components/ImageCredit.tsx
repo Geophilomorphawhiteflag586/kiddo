@@ -1,4 +1,4 @@
-import { IMAGE_CREDIT } from '../data/images.ts';
+import { OPENSTAX_CREDIT, POSTER_CREDIT } from '../data/credits.ts';
 
 /**
  * Указание источника иллюстраций. Лицензия CC BY-NC-SA 4.0 требует называть
@@ -7,21 +7,22 @@ import { IMAGE_CREDIT } from '../data/images.ts';
  */
 export default function ImageCredit({ className = '' }: { className?: string }) {
   return (
-    <p className={`text-center text-[11px] leading-relaxed text-slate-500 ${className}`}>
+    <p className={`text-center text-[11px] leading-relaxed text-slate-400 ${className}`}>
       Анатомические иллюстрации:{' '}
-      <a href={IMAGE_CREDIT.url} target="_blank" rel="noreferrer" className="hover:underline">
-        «{IMAGE_CREDIT.source}»
+      <a href={OPENSTAX_CREDIT.url} target="_blank" rel="noreferrer" className="hover:underline">
+        «{OPENSTAX_CREDIT.source}»
       </a>
-      , {IMAGE_CREDIT.publisher} —{' '}
+      , {OPENSTAX_CREDIT.publisher} —{' '}
       <a
-        href={IMAGE_CREDIT.licenseUrl}
+        href={OPENSTAX_CREDIT.licenseUrl}
         target="_blank"
         rel="noreferrer"
         className="hover:underline"
       >
-        {IMAGE_CREDIT.license}
+        {OPENSTAX_CREDIT.license}
       </a>
-      . Рисунки обрезаны, подписи убраны. Access for free at openstax.org
+      . Рисунки обрезаны, подписи убраны. Access for free at openstax.org.
+      {' '}Рисунки органов — {POSTER_CREDIT.publisher}.
     </p>
   );
 }

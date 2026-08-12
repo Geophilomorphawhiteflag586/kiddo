@@ -34,7 +34,7 @@ export default function ChessSession() {
     return (
       <div className="min-h-dvh">
         <Hud />
-        <div className="grid place-items-center py-32 text-slate-500">Расставляем фигуры…</div>
+        <div className="grid place-items-center py-32 text-slate-400">Расставляем фигуры…</div>
       </div>
     );
   }
@@ -169,7 +169,7 @@ function RunningSession({
     return (
       <div className="min-h-dvh">
         <Hud />
-        <div className="grid place-items-center py-32 text-slate-500">Задача не найдена.</div>
+        <div className="grid place-items-center py-32 text-slate-400">Задача не найдена.</div>
       </div>
     );
   }
@@ -180,20 +180,20 @@ function RunningSession({
 
       <main className="mx-auto w-full max-w-3xl px-4 pb-16 pt-6 sm:px-6">
         <div className="mb-4 flex items-center justify-between text-sm">
-          <span className="font-bold text-slate-500">
+          <span className="font-bold text-slate-400">
             Задача {index + 1} / {ids.length}
-            <span className="ml-2 text-xs text-slate-600">
+            <span className="ml-2 text-xs text-slate-500">
               #{puzzle.id} · {DIFFICULTY_LABELS[puzzle.difficulty].toLowerCase()}
             </span>
           </span>
-          <span className="tabular-nums text-slate-500">{formatTime(elapsed)}</span>
+          <span className="tabular-nums text-slate-400">{formatTime(elapsed)}</span>
         </div>
 
         <div className="panel p-5">
           <p className="text-center text-lg font-extrabold">
             {puzzle.sideToMove === 'w' ? 'Ход белых' : 'Ход чёрных'} · мат в 1 ход
           </p>
-          <p className="mt-1 text-center text-xs text-slate-500">
+          <p className="mt-1 text-center text-xs text-slate-400">
             Нажмите свою фигуру, затем клетку, куда пойти
           </p>
 
@@ -214,10 +214,10 @@ function RunningSession({
           <div aria-live="polite" className="mt-4 min-h-20 text-center">
             {feedback?.kind === 'illegal' && (
               <div className="animate-pop rounded-xl border border-amber-400/40 bg-amber-400/10 p-3">
-                <p className="font-extrabold text-amber-700">
+                <p className="font-extrabold text-amber-200">
                   {ILLEGAL_MESSAGES[feedback.attempt.reason ?? 'not_a_move'].title}
                 </p>
-                <p className="mt-0.5 text-sm text-slate-500">
+                <p className="mt-0.5 text-sm text-slate-400">
                   {ILLEGAL_MESSAGES[feedback.attempt.reason ?? 'not_a_move'].hint}
                 </p>
               </div>
@@ -227,17 +227,17 @@ function RunningSession({
                 <p className="font-extrabold text-sky-200">
                   {feedback.attempt.move} — ход есть, но мата нет
                 </p>
-                <p className="mt-0.5 text-sm text-slate-500">
+                <p className="mt-0.5 text-sm text-slate-400">
                   {feedback.attempt.isCheck ? 'Это шах, но король уходит' : 'Ищите дальше'}
                 </p>
               </div>
             )}
             {feedback?.kind === 'mate' && (
               <div className="animate-pop rounded-xl border border-emerald-400/40 bg-emerald-500/10 p-4">
-                <p className="text-xl font-extrabold text-emerald-600">
+                <p className="text-xl font-extrabold text-emerald-300">
                   ✓ Мат! {feedback.attempt.move}
                 </p>
-                <div className="mt-2 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm text-slate-500">
+                <div className="mt-2 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm text-slate-400">
                   <span>Время: {formatTime(feedback.attempt.elapsedTimeMs)}</span>
                   <span>Попыток: {feedback.attempt.attemptNumber}</span>
                   <span>
@@ -268,16 +268,16 @@ function RunningSession({
 
         {/* Счётчик попыток виден всегда: ошибки не скрываются, но и не пугают. */}
         {!solved && attempts.length > 0 && (
-          <p className="mt-3 text-center text-sm text-slate-500">
+          <p className="mt-3 text-center text-sm text-slate-400">
             Попыток: {attempts.length} · продолжайте искать мат
           </p>
         )}
 
         <div className="mt-6 flex justify-center gap-4 text-sm">
-          <button onClick={nextPuzzle} className="text-slate-500 hover:underline">
+          <button onClick={nextPuzzle} className="text-slate-400 hover:underline">
             Пропустить задачу
           </button>
-          <Link href="/chess" className="text-slate-500 hover:underline">
+          <Link href="/chess" className="text-slate-400 hover:underline">
             Выйти
           </Link>
         </div>
@@ -356,7 +356,7 @@ function SessionResults({
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg border border-line bg-ink-700/40 p-2.5">
-      <dt className="text-xs text-slate-500">{label}</dt>
+      <dt className="text-xs text-slate-400">{label}</dt>
       <dd className="font-extrabold">{value}</dd>
     </div>
   );

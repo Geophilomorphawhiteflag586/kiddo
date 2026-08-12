@@ -50,7 +50,7 @@ export default function ChessBoard({
   return (
     <div className="inline-block select-none">
       <div className="flex">
-        <div className="flex flex-col justify-around pr-1 text-[10px] font-bold text-slate-600">
+        <div className="flex flex-col justify-around pr-1 text-[10px] font-bold text-slate-500">
           {ranks.map((rank) => (
             <span key={rank} className="grid h-[calc(min(11vw,3.25rem))] place-items-center">
               {rank}
@@ -118,7 +118,7 @@ export default function ChessBoard({
         {files.map((file) => (
           <span
             key={file}
-            className="grid w-[min(11vw,3.25rem)] place-items-center pt-1 text-[10px] font-bold text-slate-600"
+            className="grid w-[min(11vw,3.25rem)] place-items-center pt-1 text-[10px] font-bold text-slate-500"
           >
             {file}
           </span>

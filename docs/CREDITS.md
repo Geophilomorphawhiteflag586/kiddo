@@ -13,7 +13,19 @@
 
 ## Анатомические иллюстрации
 
-`public/anatomy/**` — 25 отдельных структур и 8 базовых иллюстраций регионов.
+Источников два.
+
+### Набор рисунков органов
+
+`public/anatomy/{heart,lungs,brain,liver,stomach,kidneys,intestines,gallbladder,pancreas,spleen}.webp`
+нарезаны с плаката, предоставленного владельцем проекта
+(`assets-src/figures/poster.png`, в репозиторий не входит). Права на исходник
+подтверждает владелец проекта. Если источник окажется иным — замените запись
+`POSTER_CREDIT` в `src/modules/anatomy/data/credits.ts` и сами файлы.
+
+### Учебник OpenStax
+
+`public/anatomy/**` — остальные 19 структур и 8 базовых иллюстраций регионов.
 
 - **Источник:** J. Gordon Betts и др., «Anatomy and Physiology 2e», OpenStax,
   Rice University, 2022–2026.

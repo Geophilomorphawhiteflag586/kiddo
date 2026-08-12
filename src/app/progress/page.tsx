@@ -115,7 +115,7 @@ export default function ProgressPage() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="text-2xl font-extrabold">Общий прогресс</h1>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-slate-400">
               {hydrated
                 ? `${profile.name} · открыто ${discovered} из ${COUNTRIES.length} стран · лучшая серия ${data.bestHotStreak}`
                 : 'Загружаем прогресс…'}
@@ -133,7 +133,7 @@ export default function ProgressPage() {
                 className={`rounded-lg px-3 py-1.5 text-sm font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent ${
                   tab === t.id
                     ? 'bg-accent text-white'
-                    : 'border border-line bg-ink-800 text-slate-500 hover:text-ink'
+                    : 'border border-line bg-ink-800 text-slate-400 hover:text-ink'
                 }`}
               >
                 {t.label}
@@ -179,7 +179,7 @@ export default function ProgressPage() {
                     onClick={() => setView(v.id)}
                     aria-pressed={view === v.id}
                     className={`rounded-md px-2.5 py-1 text-xs font-extrabold transition ${
-                      view === v.id ? 'bg-accent text-white' : 'text-slate-500 hover:text-white'
+                      view === v.id ? 'bg-accent text-white' : 'text-slate-400 hover:text-white'
                     }`}
                   >
                     {v.label}
@@ -202,14 +202,14 @@ export default function ProgressPage() {
               </p>
               <p className="text-3xl font-extrabold">
                 {tabMastered}
-                <span className="text-lg text-slate-500"> / {tabTotal}</span>
-                <span className="ml-2 text-sm font-bold text-slate-500">освоено</span>
+                <span className="text-lg text-slate-400"> / {tabTotal}</span>
+                <span className="ml-2 text-sm font-bold text-slate-400">освоено</span>
               </p>
               <ul className="mt-3 space-y-1.5">
                 {[5, 4, 3, 2, 1, 0].map((level) => (
                   <li key={level} className="flex items-center gap-2.5 text-sm">
                     <span className="h-2.5 w-2.5 rounded-full" style={{ background: LEVELS[level].color }} />
-                    <span className="flex-1 text-slate-500">{LEVELS[level].label}</span>
+                    <span className="flex-1 text-slate-400">{LEVELS[level].label}</span>
                     <span className="font-extrabold tabular-nums">{levelCounts[level]}</span>
                   </li>
                 ))}
@@ -221,7 +221,7 @@ export default function ProgressPage() {
               <ul className="space-y-2">
                 {weakestSkills.map(({ skill, percent }, i) => (
                   <li key={skill} className="flex items-center gap-2.5 text-sm">
-                    <span className="w-4 text-slate-600">{i + 1}</span>
+                    <span className="w-4 text-slate-500">{i + 1}</span>
                     <span
                       aria-hidden
                       className="grid h-6 w-6 place-items-center rounded-md text-xs"
@@ -230,7 +230,7 @@ export default function ProgressPage() {
                       {SKILL_META[skill].emoji}
                     </span>
                     <span className="flex-1 font-bold">{SKILL_META[skill].short}</span>
-                    <span className="font-extrabold text-slate-500">{percent}%</span>
+                    <span className="font-extrabold text-slate-400">{percent}%</span>
                   </li>
                 ))}
               </ul>
@@ -267,7 +267,7 @@ export default function ProgressPage() {
                     <p className="truncate text-sm font-extrabold">
                       {getCountry(a)?.name} / {getCountry(b)?.name}
                     </p>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-slate-400">
                       {SKILL_META[skill].short} · перепутано {count} раз
                     </p>
                   </div>
@@ -299,7 +299,7 @@ export default function ProgressPage() {
                   </span>
                   <div className="min-w-0 flex-1">
                     <p className="font-extrabold">{achievement.title}</p>
-                    <p className="truncate text-xs text-slate-500">{achievement.description}</p>
+                    <p className="truncate text-xs text-slate-400">{achievement.description}</p>
                     {progress && (
                       <div className="mt-1.5 flex items-center gap-2">
                         <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-ink-700">
@@ -308,14 +308,14 @@ export default function ProgressPage() {
                             style={{ width: `${(progress.current / progress.target) * 100}%` }}
                           />
                         </div>
-                        <span className="text-xs font-bold text-slate-500">
+                        <span className="text-xs font-bold text-slate-400">
                           {progress.current}/{progress.target}
                         </span>
                       </div>
                     )}
                   </div>
                   {has && (
-                    <span className="shrink-0 rounded-full bg-emerald-500/15 px-2.5 py-1 text-xs font-extrabold text-emerald-600">
+                    <span className="shrink-0 rounded-full bg-emerald-500/15 px-2.5 py-1 text-xs font-extrabold text-emerald-300">
                       Получено
                     </span>
                   )}
@@ -340,7 +340,7 @@ export default function ProgressPage() {
                       setView('globe');
                       setFocus(continent.view);
                     }}
-                    className="ml-1 rounded-full border border-line px-2.5 py-0.5 text-xs font-bold text-slate-500 transition hover:text-ink"
+                    className="ml-1 rounded-full border border-line px-2.5 py-0.5 text-xs font-bold text-slate-400 transition hover:text-ink"
                   >
                     Показать
                   </button>
@@ -389,7 +389,7 @@ export default function ProgressPage() {
                     className={`rounded-lg px-3.5 py-2 text-sm font-bold transition ${
                       profile.ageMode === mode.id
                         ? 'bg-accent text-white'
-                        : 'border border-line bg-ink-800 text-slate-500 hover:text-ink'
+                        : 'border border-line bg-ink-800 text-slate-400 hover:text-ink'
                     }`}
                   >
                     {mode.label}
@@ -402,7 +402,7 @@ export default function ProgressPage() {
                 if (confirm(`Сбросить прогресс профиля «${profile.name}»? Это действие нельзя отменить.`))
                   reset();
               }}
-              className="text-sm text-slate-600 underline-offset-4 transition hover:text-rose-600 hover:underline"
+              className="text-sm text-slate-500 underline-offset-4 transition hover:text-rose-300 hover:underline"
             >
               Сбросить прогресс этого профиля
             </button>
@@ -447,14 +447,14 @@ function DailyGoal({
           <p className="text-2xl font-extrabold leading-tight">
             {dayStreak} {dayStreak === 1 ? 'день' : dayStreak < 5 ? 'дня' : 'дней'}
           </p>
-          <p className="text-xs text-slate-500">Текущая серия</p>
+          <p className="text-xs text-slate-400">Текущая серия</p>
         </div>
       </div>
 
       <div className="mt-4">
         <div className="flex items-baseline justify-between text-sm">
           <span className="panel-title">Ежедневная цель</span>
-          <span className="font-bold text-slate-500">
+          <span className="font-bold text-slate-400">
             {Math.min(answersToday, DAILY_GOAL)} / {DAILY_GOAL} повторений
           </span>
         </div>
@@ -470,7 +470,7 @@ function DailyGoal({
         <p className="mb-2 text-sm font-extrabold">
           {MONTHS[month]} {year}
         </p>
-        <div className="grid grid-cols-7 gap-1 text-center text-[11px] text-slate-600">
+        <div className="grid grid-cols-7 gap-1 text-center text-[11px] text-slate-500">
           {WEEKDAYS.map((d) => (
             <span key={d}>{d}</span>
           ))}
@@ -487,10 +487,10 @@ function DailyGoal({
                 key={day}
                 className={`grid h-7 place-items-center rounded-md text-xs font-bold ${
                   played
-                    ? 'bg-emerald-500/25 text-emerald-600'
+                    ? 'bg-emerald-500/25 text-emerald-300'
                     : isToday
-                      ? 'border border-accent/60 text-slate-500'
-                      : 'text-slate-600'
+                      ? 'border border-accent/60 text-slate-400'
+                      : 'text-slate-500'
                 }`}
                 title={played ? `${history[dayKey(day)]} повторений` : undefined}
               >

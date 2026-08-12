@@ -28,7 +28,7 @@ function Chip({ emoji, value, title }: { emoji: string; value: string | number; 
   return (
     <div
       title={title}
-      className="flex items-center gap-1.5 rounded-full border border-line bg-ink-800 px-3.5 py-1.5 text-sm font-extrabold shadow-[0_2px_8px_-4px_rgba(27,33,64,0.25)]"
+      className="flex items-center gap-1.5 rounded-full border border-line bg-ink-800 px-3.5 py-1.5 text-sm font-extrabold"
     >
       <span aria-hidden>{emoji}</span>
       <span className="tabular-nums">{value}</span>
@@ -63,7 +63,7 @@ export default function Hud() {
         <div className="mx-auto flex min-h-16 w-full max-w-[1400px] flex-wrap items-center gap-3 px-4 py-2.5 sm:px-6">
           {/* Логотип нужен только там, где боковой панели не видно. */}
           <Link href="/learn" className="lg:hidden">
-            <KiddoLogo className="text-[24px]" sparkles={false} />
+            <KiddoLogo className="h-9" />
             <span className="sr-only">Kiddo — на главную</span>
           </Link>
 
@@ -75,7 +75,7 @@ export default function Hud() {
                 className={`rounded-lg px-3 py-1.5 text-sm font-bold transition ${
                   item.href === pathname
                     ? 'bg-accent text-white'
-                    : 'text-slate-500 hover:bg-ink-700 hover:text-ink'
+                    : 'text-slate-400 hover:bg-ink-700 hover:text-ink'
                 }`}
               >
                 {item.label}
@@ -109,7 +109,7 @@ export default function Hud() {
             key={item.label}
             href={item.href}
             className={`flex-1 py-3 text-center text-xs font-extrabold transition ${
-              item.href === pathname ? 'text-accent' : 'text-slate-500'
+              item.href === pathname ? 'text-accent' : 'text-slate-400'
             }`}
           >
             {item.label}

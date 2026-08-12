@@ -114,7 +114,7 @@ export default function ProfileMenu() {
         <Avatar name={profile.name} />
         <span className="hidden sm:block">
           <span className="block text-sm font-extrabold leading-tight">{profile.name}</span>
-          <span className="block text-[11px] leading-tight text-slate-500">
+          <span className="block text-[11px] leading-tight text-slate-400">
             Уровень {levelOf(data.xp)} · сегодня: {data.answersToday}
           </span>
         </span>
@@ -146,13 +146,13 @@ export default function ProfileMenu() {
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm font-extrabold">
                       {p.name}
-                      {p.guest && <span className="ml-1.5 text-xs font-semibold text-slate-500">гость</span>}
+                      {p.guest && <span className="ml-1.5 text-xs font-semibold text-slate-400">гость</span>}
                     </span>
-                    <span className="block text-xs text-slate-500">
+                    <span className="block text-xs text-slate-400">
                       Уровень {levelOf(xp)} · {xp.toLocaleString('ru-RU')} XP
                     </span>
                   </span>
-                  {active && <span aria-hidden className="text-amber-600">★</span>}
+                  {active && <span aria-hidden className="text-amber-300">★</span>}
                 </button>
               );
             })}
@@ -185,7 +185,7 @@ export default function ProfileMenu() {
             {notice && (
               <p
                 className={`px-3 pb-1 pt-0.5 text-xs ${
-                  notice.ok ? 'text-emerald-600' : 'text-rose-600'
+                  notice.ok ? 'text-emerald-300' : 'text-rose-300'
                 }`}
               >
                 {notice.text}
@@ -243,7 +243,7 @@ export default function ProfileMenu() {
                   setOpen(false);
                 }
               }}
-              className="w-full rounded-lg px-3 py-2 text-left text-sm font-bold text-rose-600 transition hover:bg-rose-500/15"
+              className="w-full rounded-lg px-3 py-2 text-left text-sm font-bold text-rose-300 transition hover:bg-rose-500/15"
             >
               🗑 Удалить текущий
             </button>

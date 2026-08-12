@@ -17,7 +17,7 @@ export default async function MathLevelPage({
 
   return (
     <Suspense
-      fallback={<div className="grid min-h-dvh place-items-center text-slate-500">Загрузка…</div>}
+      fallback={<div className="grid min-h-dvh place-items-center text-slate-400">Загрузка…</div>}
     >
       <MathSession slug={level} />
     </Suspense>

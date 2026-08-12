@@ -43,13 +43,13 @@ export default function SettingsPage() {
           </span>
           <div className="min-w-0 flex-1">
             <p className="text-xl font-extrabold">{hydrated ? profile?.name : '—'}</p>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-slate-400">
               {hydrated
                 ? `Уровень ${levelOf(data.xp)} · ${data.xp.toLocaleString('ru-RU')} XP · ${data.coins} монет`
                 : ' '}
             </p>
           </div>
-          <p className="w-full text-xs text-slate-500 sm:w-auto">
+          <p className="w-full text-xs text-slate-400 sm:w-auto">
             Сменить профиль, переименовать или сохранить копию прогресса — в меню профиля
             справа сверху.
           </p>
@@ -57,7 +57,7 @@ export default function SettingsPage() {
 
         <section className="panel mt-4 p-5">
           <p className="panel-title mb-1">Возрастной режим</p>
-          <p className="mb-4 text-sm text-slate-500">
+          <p className="mb-4 text-sm text-slate-400">
             Определяет, сколько подробностей показывать в карточке страны.
           </p>
           <div className="grid gap-2 sm:grid-cols-3">
@@ -76,7 +76,7 @@ export default function SettingsPage() {
                   }`}
                 >
                   <span className="block font-extrabold">{mode.title}</span>
-                  <span className="mt-1 block text-xs text-slate-500">{mode.hint}</span>
+                  <span className="mt-1 block text-xs text-slate-400">{mode.hint}</span>
                 </button>
               );
             })}
@@ -85,7 +85,7 @@ export default function SettingsPage() {
 
         <section className="panel mt-4 p-5">
           <p className="panel-title mb-1">Озвучка</p>
-          <p className="mb-4 text-sm text-slate-500">
+          <p className="mb-4 text-sm text-slate-400">
             Голоса берутся из операционной системы. Если нужного языка нет, установите его в
             параметрах системы — приложение подхватит голос после перезапуска браузера.
           </p>

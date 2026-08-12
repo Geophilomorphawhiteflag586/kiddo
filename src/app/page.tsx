@@ -82,7 +82,7 @@ export default function Home() {
                   <button
                     onClick={() => setSelected(null)}
                     aria-label="Закрыть"
-                    className="rounded-full px-2 text-slate-500 transition hover:bg-white/10 hover:text-ink"
+                    className="rounded-full px-2 text-slate-400 transition hover:bg-white/10 hover:text-ink"
                   >
                     ✕
                   </button>
@@ -103,7 +103,7 @@ export default function Home() {
             ) : (
               <section className="panel p-4">
                 <p className="panel-title mb-2">Глобус</p>
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-slate-400">
                   Нажми на страну, чтобы увидеть её карточку и уровень освоения каждого навыка.
                 </p>
               </section>
@@ -165,7 +165,7 @@ export default function Home() {
                 {LEGEND.map((item) => (
                   <li key={item.level} className="flex items-center gap-2.5 text-sm">
                     <span className="h-3 w-3 rounded-full" style={{ background: item.color }} />
-                    <span className="text-slate-500">{item.label}</span>
+                    <span className="text-slate-400">{item.label}</span>
                   </li>
                 ))}
               </ul>
@@ -220,7 +220,7 @@ export default function Home() {
                         <span aria-hidden>{continent.emoji}</span>
                         {continent.name}
                       </span>
-                      <span className="text-sm font-extrabold text-slate-500">{percent}%</span>
+                      <span className="text-sm font-extrabold text-slate-400">{percent}%</span>
                     </div>
                     <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-ink-700">
                       <div
@@ -228,7 +228,7 @@ export default function Home() {
                         style={{ width: `${percent}%` }}
                       />
                     </div>
-                    <div className="mt-2 flex items-center justify-between text-xs text-slate-500">
+                    <div className="mt-2 flex items-center justify-between text-xs text-slate-400">
                       <span>
                         {known}/{list.length}
                       </span>
@@ -276,7 +276,7 @@ export default function Home() {
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex items-baseline justify-between gap-3">
-      <dt className="text-slate-500">{label}</dt>
+      <dt className="text-slate-400">{label}</dt>
       <dd className="text-right font-bold">{children}</dd>
     </div>
   );

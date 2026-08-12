@@ -17,7 +17,7 @@ export default function AttemptList({
   showTimings?: boolean;
 }) {
   if (attempts.length === 0) {
-    return <p className="text-sm text-slate-500">Попыток пока не было.</p>;
+    return <p className="text-sm text-slate-400">Попыток пока не было.</p>;
   }
 
   return (
@@ -35,27 +35,27 @@ export default function AttemptList({
             key={attempt.attemptNumber}
             className={`flex items-center gap-3 rounded-lg border p-2.5 text-sm ${tone}`}
           >
-            <span className="w-5 text-center font-bold text-slate-600">
+            <span className="w-5 text-center font-bold text-slate-500">
               {attempt.attemptNumber}
             </span>
             <span className="w-24 font-extrabold tabular-nums">{attempt.move}</span>
             <span className="min-w-0 flex-1 text-xs">
               {attempt.result === 'checkmate' && (
-                <span className="font-bold text-emerald-600">Мат</span>
+                <span className="font-bold text-emerald-300">Мат</span>
               )}
               {attempt.result === 'illegal_move' && (
-                <span className="font-bold text-amber-600">
+                <span className="font-bold text-amber-300">
                   {ILLEGAL_MESSAGES[attempt.reason ?? 'not_a_move'].title}
                 </span>
               )}
               {attempt.result === 'legal_not_mate' && (
-                <span className="text-slate-500">
+                <span className="text-slate-400">
                   Ход возможен, но мата нет{attempt.isCheck ? ' (шах)' : ''}
                 </span>
               )}
             </span>
             {showTimings && (
-              <span className="shrink-0 text-right text-xs text-slate-600">
+              <span className="shrink-0 text-right text-xs text-slate-500">
                 +{seconds(attempt.timeSincePreviousAttemptMs)}
               </span>
             )}

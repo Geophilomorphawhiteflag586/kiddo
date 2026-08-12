@@ -33,14 +33,14 @@ export default function AnatomyPage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-3xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/learn" className="text-sm text-slate-500 hover:text-ink">
+        <Link href="/learn" className="text-sm text-slate-400 hover:text-ink">
           ← Все направления
         </Link>
 
         <section className="mt-6 text-center">
           <AnatomyFigure region="skeleton" className="mx-auto h-48" priority />
           <h1 className="mt-3 text-4xl font-extrabold">Анатомия</h1>
-          <p className="mt-2 text-slate-500">Изучай человеческое тело шаг за шагом.</p>
+          <p className="mt-2 text-slate-400">Изучай человеческое тело шаг за шагом.</p>
         </section>
 
         <section className="mt-8 space-y-3">
@@ -61,11 +61,11 @@ export default function AnatomyPage() {
                   <div className="min-w-0 flex-1">
                     <h2 className="text-lg font-extrabold">
                       {system.titleRu}
-                      {!unlocked && <span className="ml-2 text-sm text-slate-500">закрыто</span>}
+                      {!unlocked && <span className="ml-2 text-sm text-slate-400">закрыто</span>}
                     </h2>
-                    <p className="text-xs text-slate-500">{system.subtitleRu}</p>
+                    <p className="text-xs text-slate-400">{system.subtitleRu}</p>
                   </div>
-                  <span className="text-sm font-extrabold text-slate-500">
+                  <span className="text-sm font-extrabold text-slate-400">
                     {learned} / {structures.length}
                   </span>
                 </div>
@@ -92,7 +92,7 @@ export default function AnatomyPage() {
                           <AnatomyFigure region={region} className="h-14 w-12 shrink-0" />
                           <div className="min-w-0 flex-1">
                             <p className="truncate text-sm font-extrabold">{art?.titleRu}</p>
-                            <p className="text-xs text-slate-500">
+                            <p className="text-xs text-slate-400">
                               {done} / {total} изучено
                             </p>
                           </div>
@@ -101,7 +101,7 @@ export default function AnatomyPage() {
                     })}
                   </div>
                 ) : (
-                  <p className="mt-3 text-xs text-slate-500">
+                  <p className="mt-3 text-xs text-slate-400">
                     Откроется, когда будет освоено большинство структур раздела «
                     {SYSTEMS.find((s) => s.id === system.unlockAfter)?.titleRu}».
                   </p>
@@ -117,9 +117,9 @@ export default function AnatomyPage() {
             <div className="min-w-0 flex-1">
               <h2 className="text-lg font-extrabold">
                 Полный скелет
-                {!skeletonOpen && <span className="ml-2 text-sm text-slate-500">закрыто</span>}
+                {!skeletonOpen && <span className="ml-2 text-sm text-slate-400">закрыто</span>}
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-400">
                 Итоговая проверка: найди кость на всём скелете
               </p>
             </div>
@@ -130,7 +130,7 @@ export default function AnatomyPage() {
             )}
           </div>
           {!skeletonOpen && (
-            <p className="mt-2 text-xs text-slate-500">
+            <p className="mt-2 text-xs text-slate-400">
               Откроется, когда будут изучены кости по регионам.
             </p>
           )}

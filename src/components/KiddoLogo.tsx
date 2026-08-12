@@ -1,3 +1,6 @@
+import Image from 'next/image';
+import { BRAND_LOGO } from '@/lib/brandAssets';
+
 /**
  * Логотип Kiddo.
  *
@@ -5,8 +8,9 @@
  * ExtraBold, поэтому логотип остаётся чётким на любом экране и масштабе, а
  * цвета берутся из тех же токенов, что и остальной интерфейс.
  *
- * Если понадобится точный оригинал — положите файл в `public/brand/` и
- * замените разметку на <Image>; API компонента при этом менять не нужно.
+ * Как только оригинал появится в assets-src/brand/logo.* и будет обработан
+ * командой `npm run assets:brand`, компонент покажет именно его — вёрстка
+ * останется запасным вариантом.
  */
 
 /** Фирменные цвета: по одному на букву. */
@@ -29,10 +33,17 @@ const LETTERS = [
 export function KiddoMark({ className = '' }: { className?: string }) {
   return (
     <svg viewBox="0 0 100 100" className={className} role="img" aria-label="Kiddo">
-      <circle cx="50" cy="50" r="46" fill={BRAND.orange} />
-      <circle cx="50" cy="50" r="17" fill="#ffffff" />
-      <circle cx="37" cy="40" r="6.5" fill="#14161f" />
-      <circle cx="63" cy="40" r="6.5" fill="#14161f" />
+      <circle cx="50" cy="50" r="47" fill={BRAND.orange} />
+      <circle cx="50" cy="52" r="24" fill="#ffffff" />
+      <circle cx="41" cy="45" r="4.6" fill="#14161f" />
+      <circle cx="59" cy="45" r="4.6" fill="#14161f" />
+      <path
+        d="M40 57 Q50 66 60 57"
+        fill="none"
+        stroke="#14161f"
+        strokeWidth="4.4"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -61,6 +72,21 @@ export default function KiddoLogo({
   withTagline?: boolean;
   sparkles?: boolean;
 }) {
+  // Настоящий логотип имеет приоритет над сборкой из букв. Слоган в него уже
+  // вписан, поэтому withTagline здесь ничего не добавляет.
+  if (BRAND_LOGO) {
+    return (
+      <Image
+        src={BRAND_LOGO}
+        alt="Kiddo"
+        width={367}
+        height={240}
+        priority
+        className={`w-auto ${className}`}
+      />
+    );
+  }
+
   return (
     <span className={`inline-flex flex-col items-center leading-none ${className}`}>
       <span className="relative inline-flex items-baseline font-[900] tracking-[-0.04em]">
@@ -84,16 +110,21 @@ export default function KiddoLogo({
         />
       </svg>
 
-      {withTagline && (
-        <span className="mt-[0.28em] text-[0.235em] font-[900] tracking-tight">
-          <span style={{ color: BRAND.purple }}>Learn</span>
-          <span style={{ color: BRAND.yellow }}>.</span>{' '}
-          <span style={{ color: BRAND.blue }}>Play</span>
-          <span style={{ color: BRAND.orange }}>.</span>{' '}
-          <span style={{ color: BRAND.teal }}>Grow</span>
-          <span style={{ color: BRAND.yellow }}>.</span>
-        </span>
-      )}
+      {withTagline && <Tagline />}
+    </span>
+  );
+}
+
+/** «Learn. Play. Grow.» — цвета точек чередуются, как в логотипе. */
+function Tagline() {
+  return (
+    <span className="mt-[0.28em] text-[0.235em] font-[900] tracking-tight">
+      <span style={{ color: BRAND.purple }}>Learn</span>
+      <span style={{ color: BRAND.yellow }}>.</span>{' '}
+      <span style={{ color: BRAND.blue }}>Play</span>
+      <span style={{ color: BRAND.orange }}>.</span>{' '}
+      <span style={{ color: BRAND.teal }}>Grow</span>
+      <span style={{ color: BRAND.yellow }}>.</span>
     </span>
   );
 }

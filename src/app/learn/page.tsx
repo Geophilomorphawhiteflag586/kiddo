@@ -79,7 +79,7 @@ export default function LearnPage() {
             <br />
             <span className="text-accent">One skill at a time.</span>
           </h1>
-          <p className="mt-3 text-sm font-bold text-slate-500">
+          <p className="mt-3 text-sm font-bold text-slate-400">
             {LEARNING_LOOP_RU.join(' • ')}
           </p>
         </section>

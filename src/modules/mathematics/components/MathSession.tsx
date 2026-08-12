@@ -40,7 +40,7 @@ export default function MathSession({ slug }: { slug: string }) {
     return (
       <div className="min-h-dvh">
         <Hud />
-        <div className="grid place-items-center py-32 text-slate-500">Готовим примеры…</div>
+        <div className="grid place-items-center py-32 text-slate-400">Готовим примеры…</div>
       </div>
     );
   }
@@ -207,7 +207,7 @@ function RunningSession({
     return (
       <div className="min-h-dvh">
         <Hud />
-        <div className="grid place-items-center py-32 text-center text-slate-500">
+        <div className="grid place-items-center py-32 text-center text-slate-400">
           <p>Ошибок для повторения нет.</p>
           <Link href="/math/addition" className="btn-ghost mt-4 px-5 py-2.5 text-sm">
             К уровням
@@ -246,9 +246,9 @@ function RunningSession({
               aria-label="Ваш ответ"
               className={`w-40 rounded-xl border-2 bg-ink-950 px-4 py-3 text-center text-3xl font-extrabold tabular-nums outline-none transition ${
                 phase === 'right'
-                  ? 'border-emerald-400 text-emerald-600'
+                  ? 'border-emerald-400 text-emerald-300'
                   : phase === 'wrong'
-                    ? 'border-rose-400 text-rose-600'
+                    ? 'border-rose-400 text-rose-300'
                     : 'border-line focus:border-accent'
               }`}
             />
@@ -261,23 +261,23 @@ function RunningSession({
 
           <div aria-live="polite" className="mt-6 min-h-20">
             {phase === 'right' && (
-              <p className="text-lg font-extrabold text-emerald-600">✅ Верно</p>
+              <p className="text-lg font-extrabold text-emerald-300">✅ Верно</p>
             )}
             {phase === 'wrong' && lastAttempt && (
               <div className="rounded-xl border border-rose-400/40 bg-rose-500/10 p-3">
-                <p className="font-extrabold text-rose-600">❌ Неправильно</p>
+                <p className="font-extrabold text-rose-300">❌ Неправильно</p>
                 <p className="mt-1 text-sm">
                   {lastAttempt.operandA} + {lastAttempt.operandB} ={' '}
-                  <span className="font-extrabold text-emerald-600">
+                  <span className="font-extrabold text-emerald-300">
                     {lastAttempt.correctAnswer}
                   </span>
                 </p>
-                <p className="text-sm text-slate-500">Ваш ответ: {lastAttempt.userAnswer}</p>
+                <p className="text-sm text-slate-400">Ваш ответ: {lastAttempt.userAnswer}</p>
               </div>
             )}
           </div>
 
-          <p className="mt-4 text-sm text-slate-500">
+          <p className="mt-4 text-sm text-slate-400">
             Вопрос {index + 1} / {tasks.length}
           </p>
           <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-ink-700">
@@ -289,7 +289,7 @@ function RunningSession({
         </div>
 
         <div className="mt-6 text-center">
-          <Link href="/math/addition" className="text-sm text-slate-500 hover:underline">
+          <Link href="/math/addition" className="text-sm text-slate-400 hover:underline">
             Выйти
           </Link>
         </div>
@@ -332,20 +332,20 @@ function Results({
 
           <dl className="mt-6 grid grid-cols-3 gap-2 text-center">
             <div className="rounded-xl border border-line bg-ink-700/40 p-3">
-              <dt className="text-xs text-slate-500">Точность</dt>
+              <dt className="text-xs text-slate-400">Точность</dt>
               <dd className="text-lg font-extrabold">{accuracy}%</dd>
             </div>
             <div className="rounded-xl border border-line bg-ink-700/40 p-3">
-              <dt className="text-xs text-slate-500">Среднее время</dt>
+              <dt className="text-xs text-slate-400">Среднее время</dt>
               <dd className="text-lg font-extrabold">{(avgMs / 1000).toFixed(1)} сек</dd>
             </div>
             <div className="rounded-xl border border-line bg-ink-700/40 p-3">
-              <dt className="text-xs text-slate-500">Ошибки</dt>
+              <dt className="text-xs text-slate-400">Ошибки</dt>
               <dd className="text-lg font-extrabold">{mistakes.length}</dd>
             </div>
           </dl>
 
-          <p className="mt-3 text-center text-sm font-bold text-emerald-600">+{xpGained} XP</p>
+          <p className="mt-3 text-center text-sm font-bold text-emerald-300">+{xpGained} XP</p>
 
           {mistakes.length > 0 && (
             <div className="mt-6">
@@ -359,11 +359,11 @@ function Results({
                     <span className="font-extrabold tabular-nums">
                       {m.operandA} + {m.operandB}
                     </span>
-                    <span className="ml-auto text-slate-500">
-                      Ваш ответ: <span className="text-rose-600">{m.userAnswer}</span>
+                    <span className="ml-auto text-slate-400">
+                      Ваш ответ: <span className="text-rose-300">{m.userAnswer}</span>
                     </span>
-                    <span className="text-slate-500">
-                      Правильный: <span className="text-emerald-600">{m.correctAnswer}</span>
+                    <span className="text-slate-400">
+                      Правильный: <span className="text-emerald-300">{m.correctAnswer}</span>
                     </span>
                   </li>
                 ))}

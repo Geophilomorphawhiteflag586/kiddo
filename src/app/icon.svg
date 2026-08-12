@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="46" fill="#FA6A28" />
-  <circle cx="50" cy="50" r="17" fill="#ffffff" />
-  <circle cx="37" cy="40" r="6.5" fill="#14161f" />
-  <circle cx="63" cy="40" r="6.5" fill="#14161f" />
+  <circle cx="50" cy="50" r="47" fill="#F4542A" />
+  <circle cx="50" cy="52" r="24" fill="#ffffff" />
+  <circle cx="41" cy="45" r="4.6" fill="#14161f" />
+  <circle cx="59" cy="45" r="4.6" fill="#14161f" />
+  <path d="M40 57 Q50 66 60 57" fill="none" stroke="#14161f" stroke-width="4.4" stroke-linecap="round" />
 </svg>

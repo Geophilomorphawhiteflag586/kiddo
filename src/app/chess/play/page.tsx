@@ -5,7 +5,7 @@ export default function ChessPlayPage() {
   return (
     <Suspense
       fallback={
-        <div className="grid min-h-dvh place-items-center text-slate-500">
+        <div className="grid min-h-dvh place-items-center text-slate-400">
           Расставляем фигуры…
         </div>
       }

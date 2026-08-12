@@ -4,23 +4,21 @@
   --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
 
   /*
-   * Светлая тема Kiddo.
-   *
-   * Имена ink-* остались от прежнего тёмного макета и намеренно не
-   * переименованы: на них завязаны все экраны. Поменялись только значения —
-   * шкала теперь идёт от фона страницы к белой панели, а не наоборот.
+   * Тёмная тема Kiddo. Шкала ink-* идёт от фона страницы к панели.
+   * Все экраны завязаны на эти имена, поэтому переключение темы — это
+   * изменение значений здесь, а не правка двадцати страниц.
    */
-  --color-ink-950: #eaeefb; /* фон страницы */
-  --color-ink-900: #f3f6fd; /* приглушённая подложка */
-  --color-ink-800: #ffffff; /* панель, карточка */
-  --color-ink-700: #eef1fa; /* заливка, ховер, дорожка прогресса */
-  --color-line: #e0e5f2; /* границы */
+  --color-ink-950: #05070d; /* фон страницы */
+  --color-ink-900: #0a0e17; /* приглушённая подложка */
+  --color-ink-800: #0e1420; /* панель, карточка */
+  --color-ink-700: #141b2b; /* заливка, ховер, дорожка прогресса */
+  --color-line: #1d2536; /* границы */
 
-  /* Основной цвет текста. Заменяет прежний text-white. */
-  --color-ink: #1b2140;
+  /* Основной цвет текста: единый токен вместо прежнего text-white. */
+  --color-ink: #e5e9f2;
 
-  --color-accent: #6c4fd8;
-  --color-accent-strong: #5a3fc4;
+  --color-accent: #7c5cfc;
+  --color-accent-strong: #6d4df0;
 
   /* Фирменные цвета: те же, что в логотипе. */
   --color-brand-purple: #6c4fd8;
@@ -29,9 +27,9 @@
   --color-brand-teal: #12b886;
   --color-brand-orange: #fa6a28;
 
-  /* Тёмная боковая панель — единственный тёмный элемент оболочки. */
-  --color-shell: #171b2e;
-  --color-shell-soft: #232840;
+  /* Боковая панель чуть светлее фона — так виден край каркаса. */
+  --color-shell: #0b1018;
+  --color-shell-soft: #1a2233;
 
   --animate-pop: pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   --animate-shake: shake 0.4s ease-in-out;
@@ -49,7 +47,9 @@
 }
 
 body {
-  background: var(--color-ink-950);
+  background:
+    radial-gradient(70% 50% at 50% 0%, rgba(124, 92, 252, 0.07) 0%, transparent 60%),
+    var(--color-ink-950);
   color: var(--color-ink);
   font-family: var(--font-sans);
   min-height: 100dvh;
@@ -78,7 +78,6 @@ body {
   border-radius: 1.25rem;
   border: 1px solid var(--color-line);
   background: var(--color-ink-800);
-  box-shadow: 0 1px 2px rgba(27, 33, 64, 0.04), 0 8px 24px -16px rgba(27, 33, 64, 0.18);
 }
 
 /* Совместимость: старое имя тоже указывает на панель. */
@@ -86,7 +85,6 @@ body {
   border-radius: 1.25rem;
   border: 1px solid var(--color-line);
   background: var(--color-ink-800);
-  box-shadow: 0 1px 2px rgba(27, 33, 64, 0.04), 0 8px 24px -16px rgba(27, 33, 64, 0.18);
 }
 
 .panel-title {
@@ -94,7 +92,7 @@ body {
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #7a83a0;
+  color: #8b93a7;
 }
 
 .btn-primary {
@@ -102,7 +100,6 @@ body {
   background: var(--color-accent);
   color: #ffffff;
   font-weight: 800;
-  box-shadow: 0 6px 16px -8px rgba(108, 79, 216, 0.8);
   transition: background 0.15s ease, transform 0.15s ease;
 }
 .btn-primary:hover {
@@ -115,14 +112,14 @@ body {
 .btn-ghost {
   border-radius: 0.9rem;
   border: 1px solid var(--color-line);
-  background: var(--color-ink-800);
+  background: var(--color-ink-700);
   color: var(--color-ink);
   font-weight: 700;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 .btn-ghost:hover {
-  background: var(--color-ink-700);
-  border-color: #cfd6ea;
+  background: #1a2234;
+  border-color: #2a3448;
 }
 
 /*
@@ -135,12 +132,12 @@ body {
   border-radius: 1.5rem;
   background-image: linear-gradient(140deg, var(--from) 0%, var(--to) 100%);
   color: #ffffff;
-  box-shadow: 0 10px 30px -18px rgba(27, 33, 64, 0.55);
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.8);
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 .tile:hover {
   transform: translateY(-3px);
-  box-shadow: 0 18px 38px -18px rgba(27, 33, 64, 0.6);
+  box-shadow: 0 18px 38px -18px rgba(0, 0, 0, 0.9);
 }
 .tile-soon {
   filter: saturate(0.55);
@@ -165,7 +162,7 @@ body {
 /* Флаг всегда прямоугольный, с рамкой — иначе белые флаги сливаются с фоном. */
 .flag {
   border-radius: 0.4rem;
-  border: 1px solid rgba(27, 33, 64, 0.14);
+  border: 1px solid rgba(226, 232, 240, 0.18);
   object-fit: cover;
 }
 

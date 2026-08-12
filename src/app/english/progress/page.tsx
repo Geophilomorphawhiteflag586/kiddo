@@ -50,7 +50,7 @@ export default function EnglishProgressPage() {
       <Hud />
 
       <main className="mx-auto w-full max-w-4xl px-4 pb-20 pt-8 sm:px-6">
-        <Link href="/english" className="text-sm text-slate-500 hover:text-ink">
+        <Link href="/english" className="text-sm text-slate-400 hover:text-ink">
           ← English
         </Link>
 
@@ -72,7 +72,7 @@ export default function EnglishProgressPage() {
           <section className="panel p-5">
             <p className="panel-title mb-3">Weak words</p>
             {weak.length === 0 ? (
-              <p className="text-sm text-slate-500">Пока нет слов с ошибками.</p>
+              <p className="text-sm text-slate-400">Пока нет слов с ошибками.</p>
             ) : (
               <ul className="space-y-1.5">
                 {weak.map((card) => {
@@ -83,7 +83,7 @@ export default function EnglishProgressPage() {
                     <li key={card.wordId} className="flex items-center gap-2.5 text-sm">
                       <WordVisual word={word} size={22} />
                       <span className="flex-1 font-bold uppercase">{word.word}</span>
-                      <span className="text-xs text-slate-500">{word.translationRu}</span>
+                      <span className="text-xs text-slate-400">{word.translationRu}</span>
                       <span className="font-extrabold" style={{ color: mastery.color }}>
                         {mastery.percent}%
                       </span>
@@ -97,7 +97,7 @@ export default function EnglishProgressPage() {
           <section className="panel p-5">
             <p className="panel-title mb-3">Confusing pairs</p>
             {pairs.length === 0 ? (
-              <p className="text-sm text-slate-500">Пока ничего не путается.</p>
+              <p className="text-sm text-slate-400">Пока ничего не путается.</p>
             ) : (
               <ul className="space-y-1.5">
                 {pairs.map((pair) => {
@@ -108,10 +108,10 @@ export default function EnglishProgressPage() {
                     <li key={`${pair.a}-${pair.b}`} className="flex items-center gap-2 text-sm">
                       <WordVisual word={a} size={20} />
                       <span className="font-bold uppercase">{a.word}</span>
-                      <span className="text-slate-600">↔</span>
+                      <span className="text-slate-500">↔</span>
                       <WordVisual word={b} size={20} />
                       <span className="font-bold uppercase">{b.word}</span>
-                      <span className="ml-auto text-xs text-slate-500">{pair.count}×</span>
+                      <span className="ml-auto text-xs text-slate-400">{pair.count}×</span>
                     </li>
                   );
                 })}
@@ -128,7 +128,7 @@ export default function EnglishProgressPage() {
               className={`rounded-lg px-3 py-1.5 text-sm font-bold transition ${
                 category === 'all'
                   ? 'bg-accent text-white'
-                  : 'border border-line bg-ink-800 text-slate-500 hover:text-ink'
+                  : 'border border-line bg-ink-800 text-slate-400 hover:text-ink'
               }`}
             >
               Все
@@ -143,7 +143,7 @@ export default function EnglishProgressPage() {
                   className={`rounded-lg px-3 py-1.5 text-sm font-bold transition ${
                     category === id
                       ? 'bg-accent text-white'
-                      : 'border border-line bg-ink-800 text-slate-500 hover:text-ink'
+                      : 'border border-line bg-ink-800 text-slate-400 hover:text-ink'
                   }`}
                 >
                   {CATEGORY_LABELS[id]}{' '}
@@ -167,7 +167,7 @@ export default function EnglishProgressPage() {
                     <WordVisual word={word} size={24} />
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-bold uppercase">{word.word}</p>
-                      <p className="truncate text-[11px] text-slate-500">{word.translationRu}</p>
+                      <p className="truncate text-[11px] text-slate-400">{word.translationRu}</p>
                     </div>
                     <span
                       className="h-2.5 w-2.5 shrink-0 rounded-full"
@@ -188,7 +188,7 @@ export default function EnglishProgressPage() {
 function Tile({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="panel p-4">
-      <p className="text-xs text-slate-500">{label}</p>
+      <p className="text-xs text-slate-400">{label}</p>
       <p className="mt-1 text-xl font-extrabold">{value}</p>
     </div>
   );
@@ -210,7 +210,7 @@ function Bar({
     <div>
       <div className="flex items-baseline justify-between text-sm">
         <span className="font-extrabold">{label}</span>
-        <span className="text-slate-500">
+        <span className="text-slate-400">
           {value} / {total}
         </span>
       </div>

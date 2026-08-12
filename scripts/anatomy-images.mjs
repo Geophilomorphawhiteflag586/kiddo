@@ -17,7 +17,7 @@
  * (кости черепа по отдельности, печень и соседние с ней органы, надколенник),
  * сюда намеренно не входят: для них остаётся схема SVG с подсветкой.
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
 import { CROPS } from './anatomy-crops.mjs';
@@ -31,6 +31,13 @@ if (!existsSync(FIGURES)) {
   process.exit(1);
 }
 mkdirSync(OUT, { recursive: true });
+
+// Чистим прошлые результаты: иначе структура, выпавшая из таблицы рамок,
+// осталась бы лежать файлом и попала бы в квиз со старой, неверной обрезкой.
+// Базовые иллюстрации регионов лежат в подпапке base/ и не затрагиваются.
+for (const file of readdirSync(OUT)) {
+  if (file.endsWith('.webp')) rmSync(join(OUT, file));
+}
 
 const manifest = [];
 for (const [id, { source, figure, crop }] of Object.entries(CROPS)) {
@@ -76,53 +83,3 @@ writeFileSync(
   JSON.stringify({ ...CREDIT, figures: manifest }, null, 2),
 );
 
-const entries = manifest
-  .map(
-    ({ id, figure, width, height }) =>
-      `  ${id}: { src: '/anatomy/${id}.webp', width: ${width}, height: ${height}, figure: '${figure}' },`,
-  )
-  .join('\n');
-
-writeFileSync(
-  join(process.cwd(), 'src', 'modules', 'anatomy', 'data', 'images.ts'),
-  `/**
- * Сгенерировано \`npm run assets:anatomy\` — вручную не править.
- *
- * Иллюстрации из учебника OpenStax «${CREDIT.source}» (${CREDIT.license}),
- * обрезанные под структуры модуля. Структуры, которых здесь нет, показываются
- * схемой SVG: для них в учебнике нет отдельного чистого рисунка.
- */
-export interface StructureImage {
-  src: string;
-  width: number;
-  height: number;
-  /** Номер рисунка в учебнике — для указания источника. */
-  figure: string;
-}
-
-export const IMAGE_CREDIT = {
-  source: '${CREDIT.source}',
-  publisher: '${CREDIT.publisher}',
-  url: '${CREDIT.url}',
-  license: '${CREDIT.license}',
-  licenseUrl: '${CREDIT.licenseUrl}',
-} as const;
-
-export const STRUCTURE_IMAGES: Record<string, StructureImage> = {
-${entries}
-};
-
-/** Иллюстрация структуры, если она есть. */
-export function structureImage(id: string): StructureImage | null {
-  return STRUCTURE_IMAGES[id] ?? null;
-}
-
-/** Все ли структуры набора показываются фотографией: варианты не должны различаться по виду. */
-export function allHaveImages(ids: string[]): boolean {
-  return ids.length > 0 && ids.every((id) => id in STRUCTURE_IMAGES);
-}
-`,
-);
-
-console.log(`\nГотово: ${manifest.length} иллюстраций в ${OUT}`);
-console.log('Манифест: src/modules/anatomy/data/images.ts');
