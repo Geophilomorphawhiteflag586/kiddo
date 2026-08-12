@@ -88,7 +88,7 @@ export const LEARNING_MODULES: LearningModule[] = [
   {
     id: 'chinese',
     gradient: ['#b02a6b', '#5b1b52'],
-    tagline: 'Иероглифы, пиньинь',
+    tagline: 'Иероглифы, пиньинь и тоны',
     title: '中文',
     subtitle: 'Иероглифы, пиньинь и тоны',
     emoji: '🇨🇳',
@@ -103,7 +103,7 @@ export const LEARNING_MODULES: LearningModule[] = [
   {
     id: 'anatomy',
     gradient: ['#3f4756', '#12161f'],
-    tagline: 'Тело человека',
+    tagline: 'Органы, кости, мышцы',
     title: 'Анатомия',
     subtitle: 'Тело человека: узнать, найти, назвать',
     emoji: '🫀',
@@ -118,7 +118,7 @@ export const LEARNING_MODULES: LearningModule[] = [
   {
     id: 'chess',
     gradient: ['#6b4b2a', '#2f1f12'],
-    tagline: 'Мат в 1 ход',
+    tagline: 'Мат в 1 ход, разбор попыток',
     title: 'Шахматы',
     subtitle: 'Мат в 1 ход — тренажёр мышления',
     emoji: '♟️',

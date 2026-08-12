@@ -1,8 +1,10 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo } from 'react';
 import Hud from '@/components/Hud';
+import { MODULE_ICONS } from '@/lib/brandAssets';
 import { COUNTRIES } from '@/lib/countries';
 import { SKILLS, skillPercent } from '@/lib/skills';
 import { useActiveData, useHydrated } from '@/lib/store';
@@ -103,32 +105,54 @@ export default function LearnPage() {
 function ModuleCard({ module, percent }: { module: LearningModule; percent: number }) {
   const soon = module.status === 'soon';
   const [from, to] = module.gradient;
+  const icon = MODULE_ICONS[module.id];
 
   const body = (
     <>
-      {/* Крупный знак направления — он же фон карточки. */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute -right-4 -top-6 select-none text-[7rem] leading-none opacity-25 drop-shadow-lg"
-      >
-        {module.emoji}
-      </span>
+      {icon ? (
+        <>
+          {/* Рисунок направления занимает левую часть карточки. */}
+          <Image
+            src={icon}
+            alt=""
+            fill
+            sizes="(max-width: 640px) 100vw, 460px"
+            className="object-cover object-left"
+          />
+          {/* Растушёвка вправо: под текстом должен быть ровный цвет, а не рисунок. */}
+          <span
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(90deg, transparent 0%, ${to}66 34%, ${to}F2 52%, ${to} 66%)`,
+            }}
+          />
+        </>
+      ) : (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -right-4 -top-6 select-none text-[7rem] leading-none opacity-25"
+        >
+          {module.emoji}
+        </span>
+      )}
 
-      <div className="relative flex h-full flex-col p-5">
-        <h3 className="text-2xl font-extrabold">{module.title}</h3>
-        <p className="mt-0.5 text-sm font-semibold text-white/70">{module.tagline}</p>
+      <div className="relative ml-auto flex h-full w-[52%] flex-col justify-center p-5">
+        <h3 className="text-2xl font-extrabold leading-tight">{module.title}</h3>
+        <p className="mt-1 text-sm font-semibold text-white/75">{module.tagline}</p>
+      </div>
 
-        <div className="mt-auto pt-16">
-          <div className="mb-2 flex items-baseline justify-between text-xs font-extrabold">
-            <span className="text-white/70">{module.note ?? ''}</span>
-            <span>{soon ? 'Скоро' : `${percent}%`}</span>
-          </div>
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-black/25">
-            <div
-              className="h-full rounded-full bg-white transition-[width] duration-500"
-              style={{ width: soon ? '0%' : `${percent}%` }}
-            />
-          </div>
+      {/* Настоящий прогресс — поверх рисунка, во всю ширину карточки. */}
+      <div className="absolute inset-x-5 bottom-4">
+        <div className="mb-1.5 flex items-baseline justify-between text-xs font-extrabold">
+          <span className="text-white/75">{module.note ?? ''}</span>
+          <span>{soon ? 'Скоро' : `${percent}%`}</span>
+        </div>
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-black/35">
+          <div
+            className="h-full rounded-full bg-white transition-[width] duration-500"
+            style={{ width: soon ? '0%' : `${percent}%` }}
+          />
         </div>
       </div>
     </>
@@ -138,7 +162,7 @@ function ModuleCard({ module, percent }: { module: LearningModule; percent: numb
 
   if (soon) {
     return (
-      <div className="tile tile-soon min-h-52" style={style} aria-disabled>
+      <div className="tile tile-soon relative h-52" style={style} aria-disabled>
         {body}
       </div>
     );
@@ -148,7 +172,7 @@ function ModuleCard({ module, percent }: { module: LearningModule; percent: numb
     <Link
       href={module.href}
       style={style}
-      className="tile min-h-52 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+      className="tile relative block h-52 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
     >
       {body}
     </Link>

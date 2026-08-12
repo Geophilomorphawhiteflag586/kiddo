@@ -9,4 +9,11 @@
 export const BRAND_LOGO: string | null = '/brand/logo.webp';
 export const BRAND_MARK: string | null = null;
 
-export const MODULE_ICONS: Record<string, string> = {};
+export const MODULE_ICONS: Record<string, string> = {
+  "geography": "/modules/geography.webp",
+  "mathematics": "/modules/mathematics.webp",
+  "english": "/modules/english.webp",
+  "chinese": "/modules/chinese.webp",
+  "anatomy": "/modules/anatomy.webp",
+  "chess": "/modules/chess.webp"
+};
