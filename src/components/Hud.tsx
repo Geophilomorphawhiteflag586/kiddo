@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { primeSpeech } from '@/lib/speech';
 import { useActiveData, useHydrated } from '@/lib/store';
+import DailyGoalBar from './DailyGoalBar';
 import KiddoLogo from './KiddoLogo';
 import ProfileMenu from './ProfileMenu';
 import Sidebar from './Sidebar';
@@ -97,6 +98,7 @@ export default function Hud() {
             )}
           </div>
         </div>
+        <DailyGoalBar />
       </header>
 
       {/* Нижняя панель на телефоне: до неё дотягивается большой палец. */}

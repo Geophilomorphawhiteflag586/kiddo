@@ -44,6 +44,7 @@ import {
   normalizePeopleProgress,
 } from '../modules/people/progress.ts';
 import type { PeopleAnswerRecord } from '../modules/people/types.ts';
+import { normalizePlan, planForDay, type DailyGoal } from './plan.ts';
 import {
   type Achievement,
   type ProfileData,
@@ -89,6 +90,8 @@ interface State extends PersistedState {
   /** Структуру показали на экране изучения. */
   markAnatomySeen: (structureId: string) => void;
   markPersonSeen: (personId: string) => void;
+  /** Ставит или снимает дневную норму направления. */
+  setDailyGoal: (moduleId: string, goal: DailyGoal | null) => void;
   submitPeopleAnswer: (
     answer: PeopleAnswerRecord,
   ) => { xpGained: number; unlocked: Achievement[] };
@@ -265,6 +268,17 @@ export const useGame = create<State>()(
         });
 
         return { xpGained: result.xpGained, unlocked: applied.unlocked };
+      },
+
+      setDailyGoal: (moduleId, goal) => {
+        const now = Date.now();
+        const { activeProfileId: id, data } = get();
+        const profileData = data[id] ?? emptyProfileData();
+        const plan = planForDay(normalizePlan(profileData.plan), now);
+        const goals = { ...plan.goals };
+        if (goal) goals[moduleId] = goal;
+        else delete goals[moduleId];
+        set({ data: { ...data, [id]: { ...profileData, plan: { ...plan, goals } } } });
       },
 
       markPersonSeen: (personId) => {

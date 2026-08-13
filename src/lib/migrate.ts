@@ -10,6 +10,7 @@
  */
 import { normalizeAnatomyProgress } from '../modules/anatomy/progress.ts';
 import { normalizePeopleProgress } from '../modules/people/progress.ts';
+import { normalizePlan } from './plan.ts';
 import { normalizeChessProgress } from '../modules/chess/progress.ts';
 import { normalizeChineseProgress } from '../modules/chinese/progress.ts';
 import { normalizeEnglishProgress } from '../modules/english/progress.ts';
@@ -24,7 +25,7 @@ export interface PersistedState {
   data: Record<string, ProfileData>;
 }
 
-export const STORE_VERSION = 10;
+export const STORE_VERSION = 11;
 export const GUEST_ID = 'guest';
 const MIGRATED_ID = 'player-1';
 
@@ -153,6 +154,7 @@ export function migrateStore(persisted: unknown, version: number, now = Date.now
         merged.chess = normalizeChessProgress(merged.chess);
         merged.anatomy = normalizeAnatomyProgress(merged.anatomy);
         merged.people = normalizePeopleProgress(merged.people);
+        merged.plan = normalizePlan(merged.plan);
         state.data[id] = merged;
       }
       return state;

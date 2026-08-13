@@ -25,6 +25,7 @@ import { emptyPeopleProgress } from '../modules/people/progress.ts';
 import { isLearned as isPersonLearned } from '../modules/people/mastery.ts';
 import { PEOPLE, TOTAL_PEOPLE } from '../modules/people/people.ts';
 import type { PeopleProgress } from '../modules/people/types.ts';
+import { emptyPlan, registerPlanActivity, type TrainingPlan } from './plan.ts';
 import { cardKey, countryLevel, skillLevel } from './skills.ts';
 import { newCard, review } from './srs.ts';
 import type { AnswerOutcome, CountryProgress, CountrySkill, ReviewCard } from './types';
@@ -60,6 +61,8 @@ export interface ProfileData {
   /** Прогресс модуля анатомии. */
   anatomy: AnatomyProgress;
   people: PeopleProgress;
+  /** Дневная норма по направлениям и прогресс за сегодня. */
+  plan: TrainingPlan;
 }
 
 export interface SessionRecord {
@@ -135,6 +138,7 @@ export function emptyProfileData(): ProfileData {
     chess: emptyChessProgress(),
     anatomy: emptyAnatomyProgress(),
     people: emptyPeopleProgress(),
+    plan: emptyPlan(),
   };
 }
 
@@ -158,6 +162,7 @@ export interface AnswerResult {
 
 type ActivityFields = Pick<
   ProfileData,
+  | 'plan'
   | 'xp'
   | 'coins'
   | 'hotStreak'
@@ -174,11 +179,19 @@ type ActivityFields = Pick<
  * Общий учёт активности: XP, монеты, серия ответов, дневная серия и календарь.
  * Одинаков для всех модулей — география и математика считаются вместе.
  */
+/**
+ * Общий учёт ответа: XP, монеты, серии и дневная норма плана.
+ *
+ * `moduleId` нужен только плану: остальные счётчики общие для всех
+ * направлений. Модуль без идентификатора в норму не пишется — так ведут себя
+ * служебные пересчёты, которые ответом ребёнка не являются.
+ */
 export function registerActivity(
   data: ProfileData,
   correct: boolean,
   xpGained: number,
   now: number,
+  moduleId?: string,
 ): ActivityFields {
   const hotStreak = correct ? data.hotStreak + 1 : 0;
   const day = today(now);
@@ -190,6 +203,7 @@ export function registerActivity(
         : 1;
 
   return {
+    plan: moduleId ? registerPlanActivity(data.plan, moduleId, now) : data.plan,
     xp: data.xp + xpGained,
     coins: data.coins + (correct ? 2 : 0),
     hotStreak,
@@ -223,7 +237,7 @@ export function applyAnswer(data: ProfileData, outcome: AnswerOutcome, now = Dat
 
   const next: ProfileData = {
     ...data,
-    ...registerActivity(data, outcome.correct, xpGained, now),
+    ...registerActivity(data, outcome.correct, xpGained, now, 'geography'),
     cards: { ...data.cards, [key]: review(card, outcome, now) },
     progress: {
       ...data.progress,
@@ -418,7 +432,7 @@ export function applyAnatomyResult(
 ): { data: ProfileData; unlocked: Achievement[] } {
   const next: ProfileData = {
     ...data,
-    ...registerActivity(data, correct, xpGained, now),
+    ...registerActivity(data, correct, xpGained, now, 'anatomy'),
     anatomy,
   };
   const earned = checkAchievements(next).filter((a) => !data.unlocked.includes(a.id));
@@ -438,7 +452,7 @@ export function applyPeopleResult(
 ): { data: ProfileData; unlocked: Achievement[] } {
   const next: ProfileData = {
     ...data,
-    ...registerActivity(data, correct, xpGained, now),
+    ...registerActivity(data, correct, xpGained, now, 'people'),
     people,
   };
   const earned = checkAchievements(next).filter((a) => !data.unlocked.includes(a.id));
@@ -459,7 +473,7 @@ export function applyChessResult(
   // Активность засчитывается только за решённую задачу: неверный ход — это
   // часть поиска, он не должен рвать серию верных ответов.
   const next: ProfileData = solved
-    ? { ...data, ...registerActivity(data, true, xpGained, now), chess }
+    ? { ...data, ...registerActivity(data, true, xpGained, now, 'chess'), chess }
     : { ...data, chess };
   const earned = checkAchievements(next).filter((a) => !data.unlocked.includes(a.id));
   return {
@@ -478,7 +492,7 @@ export function applyChineseResult(
 ): { data: ProfileData; unlocked: Achievement[] } {
   const next: ProfileData = {
     ...data,
-    ...registerActivity(data, correct, xpGained, now),
+    ...registerActivity(data, correct, xpGained, now, 'chinese'),
     chinese,
   };
   const earned = checkAchievements(next).filter((a) => !data.unlocked.includes(a.id));
@@ -498,7 +512,7 @@ export function applyEnglishResult(
 ): { data: ProfileData; unlocked: Achievement[] } {
   const next: ProfileData = {
     ...data,
-    ...registerActivity(data, correct, xpGained, now),
+    ...registerActivity(data, correct, xpGained, now, 'english'),
     english,
   };
   const earned = checkAchievements(next).filter((a) => !data.unlocked.includes(a.id));
@@ -518,7 +532,7 @@ export function applyMathResult(
 ): { data: ProfileData; unlocked: Achievement[] } {
   const next: ProfileData = {
     ...data,
-    ...registerActivity(data, correct, xpGained, now),
+    ...registerActivity(data, correct, xpGained, now, 'mathematics'),
     math,
   };
   const earned = checkAchievements(next).filter((a) => !data.unlocked.includes(a.id));

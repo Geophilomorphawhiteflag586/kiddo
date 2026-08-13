@@ -23,6 +23,7 @@ import { additionMastery } from '@/modules/mathematics/mastery';
 import { summarize as peopleSummary } from '@/modules/people/mastery';
 import { PEOPLE, TOTAL_PEOPLE } from '@/modules/people/people';
 import { normalizePeopleProgress } from '@/modules/people/progress';
+import { goalProgress, normalizePlan, planComplete, type GoalProgress } from '@/lib/plan';
 import { normalizeMathProgress } from '@/modules/mathematics/progress';
 import {
   LEARNING_LOOP_RU,
@@ -78,6 +79,14 @@ export default function LearnPage() {
     };
   }, [data]);
 
+  const plan = useMemo(() => normalizePlan(data.plan), [data.plan]);
+  const planCount = Object.keys(plan.goals).length;
+  const allDone = planComplete(plan);
+  const leftToday = LEARNING_MODULES.filter((module) => {
+    const goal = goalProgress(plan, module.id);
+    return goal !== null && !goal.done;
+  }).length;
+
   return (
     <div className="min-h-dvh">
       <Hud />
@@ -92,6 +101,19 @@ export default function LearnPage() {
           <p className="mt-3 text-sm font-bold text-slate-400">
             {LEARNING_LOOP_RU.join(' • ')}
           </p>
+
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <Link href="/plan" className="btn-primary px-6 py-2.5 text-sm">
+              Настроить занятия
+            </Link>
+            {hydrated && planCount > 0 && (
+              <span className="text-sm font-bold text-slate-400">
+                {allDone
+                  ? 'План на сегодня выполнен'
+                  : `Осталось направлений сегодня: ${leftToday}`}
+              </span>
+            )}
+          </div>
         </section>
 
         <h2 className="mb-4 mt-9 text-xl font-extrabold">Что будем изучать?</h2>
@@ -102,6 +124,7 @@ export default function LearnPage() {
               key={module.id}
               module={module}
               percent={hydrated ? progress[module.progress] : 0}
+              goal={hydrated ? goalProgress(plan, module.id) : null}
             />
           ))}
         </div>
@@ -110,7 +133,16 @@ export default function LearnPage() {
   );
 }
 
-function ModuleCard({ module, percent }: { module: LearningModule; percent: number }) {
+function ModuleCard({
+  module,
+  percent,
+  goal,
+}: {
+  module: LearningModule;
+  percent: number;
+  /** Дневная норма, если направление в плане. */
+  goal: GoalProgress | null;
+}) {
   const soon = module.status === 'soon';
   const [from, to] = module.gradient;
   const icon = MODULE_ICONS[module.id];
@@ -148,6 +180,17 @@ function ModuleCard({ module, percent }: { module: LearningModule; percent: numb
       <div className="relative ml-auto flex h-full w-[52%] flex-col justify-center p-5">
         <h3 className="text-2xl font-extrabold leading-tight">{module.title}</h3>
         <p className="mt-1 text-sm font-semibold text-white/75">{module.tagline}</p>
+        {goal && (
+          <p
+            className={`mt-2 inline-flex w-fit rounded-full px-2.5 py-1 text-xs font-extrabold ${
+              goal.done ? 'bg-emerald-400 text-emerald-950' : 'bg-black/35 text-white'
+            }`}
+          >
+            {goal.done
+              ? 'На сегодня готово'
+              : `${goal.current} / ${goal.target}${goal.goal.kind === 'time' ? ' мин' : ''}`}
+          </p>
+        )}
       </div>
 
       {/* Настоящий прогресс — поверх рисунка, во всю ширину карточки. */}
