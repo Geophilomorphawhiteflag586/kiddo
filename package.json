@@ -20,7 +20,8 @@
     "data:chess": "node scripts/generate-chess-puzzles.mjs 1000",
     "assets:extract": "node scripts/extract-smart.mjs",
     "assets:anatomy": "node scripts/anatomy-bases.mjs && node scripts/anatomy-images.mjs && node scripts/anatomy-poster.mjs && node scripts/anatomy-manifest.mjs",
-    "assets:brand": "node scripts/brand-assets.mjs"
+    "assets:brand": "node scripts/brand-assets.mjs",
+    "data:people": "node scripts/people-fetch.mjs && node scripts/people-images.mjs && node scripts/people-build.mjs"
   },
   "dependencies": {
     "chess.js": "^1.4.0",
