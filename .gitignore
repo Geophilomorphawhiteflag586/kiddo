@@ -52,3 +52,7 @@ AGENTS.md
 .claude/
 .cursor/
 .github/copilot-instructions.md
+
+# Кеш и промежуточные данные модуля «Известные люди»
+assets-src/people-cache/
+assets-src/people-verified.json
