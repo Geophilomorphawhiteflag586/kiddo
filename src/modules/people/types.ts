@@ -50,3 +50,29 @@ export interface PeopleQuestion {
   /** Идентификаторы персон-вариантов; для «роли» — тексты ролей. */
   options: string[];
 }
+
+import type { SrsState } from '../../lib/srs.ts';
+
+export interface PersonCard extends SrsState {
+  personId: string;
+  skill: PeopleSkill;
+}
+
+export interface PeopleProgress {
+  /** Ключ — `${personId}:${skill}`. */
+  cards: Record<string, PersonCard>;
+  /** Кого ребёнок уже видел на экране знакомства. */
+  seen: string[];
+  /** Кого с кем путает: Бөкейхан ↔ Байтұрсынұлы. */
+  confusions: Record<string, Record<string, number>>;
+}
+
+export interface PeopleAnswerRecord {
+  personId: string;
+  skill: PeopleSkill;
+  mode: PeopleQuizMode;
+  /** Что выбрали: id персоны либо текст роли. */
+  chosen: string;
+  isCorrect: boolean;
+  responseTimeMs: number;
+}

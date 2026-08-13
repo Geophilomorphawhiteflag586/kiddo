@@ -9,6 +9,7 @@
  * Старый прогресс переезжает в профиль «Игрок» — ничего не теряется.
  */
 import { normalizeAnatomyProgress } from '../modules/anatomy/progress.ts';
+import { normalizePeopleProgress } from '../modules/people/progress.ts';
 import { normalizeChessProgress } from '../modules/chess/progress.ts';
 import { normalizeChineseProgress } from '../modules/chinese/progress.ts';
 import { normalizeEnglishProgress } from '../modules/english/progress.ts';
@@ -23,7 +24,7 @@ export interface PersistedState {
   data: Record<string, ProfileData>;
 }
 
-export const STORE_VERSION = 9;
+export const STORE_VERSION = 10;
 export const GUEST_ID = 'guest';
 const MIGRATED_ID = 'player-1';
 
@@ -139,9 +140,9 @@ export function migrateStore(persisted: unknown, version: number, now = Date.now
   try {
     if (version >= STORE_VERSION) return persisted as PersistedState;
 
-    // v2 → v6: у данных профилей появлялись новые поля (xpToday, history,
-    // bestDayStreak, bestSessions, math, english) — добиваем значениями
-    // по умолчанию, ничего не теряя.
+    // v2 → v10: у данных профилей появлялись новые поля (xpToday, history,
+    // bestDayStreak, bestSessions, math, english, chinese, chess, anatomy,
+    // people) — добиваем значениями по умолчанию, ничего не теряя.
     if (version >= 2) {
       const state = persisted as PersistedState;
       for (const id of Object.keys(state.data)) {
@@ -151,6 +152,7 @@ export function migrateStore(persisted: unknown, version: number, now = Date.now
         merged.chinese = normalizeChineseProgress(merged.chinese);
         merged.chess = normalizeChessProgress(merged.chess);
         merged.anatomy = normalizeAnatomyProgress(merged.anatomy);
+        merged.people = normalizePeopleProgress(merged.people);
         state.data[id] = merged;
       }
       return state;

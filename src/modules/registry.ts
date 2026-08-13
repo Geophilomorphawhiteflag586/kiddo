@@ -16,6 +16,7 @@ export type ProgressKind =
   | 'chinese'
   | 'chess'
   | 'anatomy'
+  | 'people'
   | 'none';
 
 export interface LearningModule {
@@ -114,6 +115,21 @@ export const LEARNING_MODULES: LearningModule[] = [
     cta: 'Изучать',
     note: 'Органы → кости → мышцы',
     accent: '#e879f9',
+  },
+  {
+    id: 'people',
+    gradient: ['#0f5ea8', '#0b2d5c'],
+    tagline: 'Казахстан: лица и имена',
+    title: 'Известные люди',
+    subtitle: 'Кто это и чем известен',
+    emoji: '👤',
+    topics: ['Фото → имя', 'Имя → фото', 'Чем известен', 'Кем является'],
+    href: '/people',
+    status: 'active',
+    progress: 'people',
+    cta: 'Знакомиться',
+    note: '125 человек · 4 навыка на каждого',
+    accent: '#38bdf8',
   },
   {
     id: 'chess',

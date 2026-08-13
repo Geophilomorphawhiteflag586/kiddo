@@ -39,9 +39,16 @@ import {
 } from '../modules/mathematics/progress.ts';
 import type { MathTask } from '../modules/mathematics/types.ts';
 import {
+  applyPeopleAnswer,
+  markSeen as markPersonSeenIn,
+  normalizePeopleProgress,
+} from '../modules/people/progress.ts';
+import type { PeopleAnswerRecord } from '../modules/people/types.ts';
+import {
   type Achievement,
   type ProfileData,
   applyAnatomyResult,
+  applyPeopleResult,
   applyAnswer,
   applyChessResult,
   applyChineseResult,
@@ -81,6 +88,10 @@ interface State extends PersistedState {
   ) => { xpGained: number; unlocked: Achievement[] };
   /** Структуру показали на экране изучения. */
   markAnatomySeen: (structureId: string) => void;
+  markPersonSeen: (personId: string) => void;
+  submitPeopleAnswer: (
+    answer: PeopleAnswerRecord,
+  ) => { xpGained: number; unlocked: Achievement[] };
   /** Ответ на задание по анатомии. */
   submitAnatomyAnswer: (
     answer: AnatomyAnswerRecord,
@@ -241,6 +252,38 @@ export const useGame = create<State>()(
 
         const result = applyAnatomyAnswer(anatomy, answer, now);
         const applied = applyAnatomyResult(
+          profileData,
+          result.progress,
+          answer.isCorrect,
+          result.xpGained,
+          now,
+        );
+
+        set({
+          data: { ...data, [id]: applied.data },
+          profiles: { ...profiles, [id]: touch(profiles[id], now) },
+        });
+
+        return { xpGained: result.xpGained, unlocked: applied.unlocked };
+      },
+
+      markPersonSeen: (personId) => {
+        const { activeProfileId: id, data } = get();
+        const profileData = data[id] ?? emptyProfileData();
+        const people = normalizePeopleProgress(profileData.people);
+        const next = markPersonSeenIn(people, personId);
+        if (next === people) return;
+        set({ data: { ...data, [id]: { ...profileData, people: next } } });
+      },
+
+      submitPeopleAnswer: (answer) => {
+        const now = Date.now();
+        const { activeProfileId: id, data, profiles } = get();
+        const profileData = data[id] ?? emptyProfileData();
+        const people = normalizePeopleProgress(profileData.people);
+
+        const result = applyPeopleAnswer(people, answer, now);
+        const applied = applyPeopleResult(
           profileData,
           result.progress,
           answer.isCorrect,

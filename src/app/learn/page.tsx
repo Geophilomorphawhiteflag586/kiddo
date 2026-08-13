@@ -20,6 +20,9 @@ import { summarize } from '@/modules/english/mastery';
 import { normalizeEnglishProgress } from '@/modules/english/progress';
 import { TOTAL_WORDS } from '@/modules/english/words';
 import { additionMastery } from '@/modules/mathematics/mastery';
+import { summarize as peopleSummary } from '@/modules/people/mastery';
+import { PEOPLE, TOTAL_PEOPLE } from '@/modules/people/people';
+import { normalizePeopleProgress } from '@/modules/people/progress';
 import { normalizeMathProgress } from '@/modules/mathematics/progress';
 import {
   LEARNING_LOOP_RU,
@@ -35,6 +38,7 @@ import {
  */
 const CHAR_IDS = CHARACTERS.map((c) => c.id);
 const STRUCTURE_IDS = STRUCTURES.map((s) => s.id);
+const PERSON_IDS = PEOPLE.map((p) => p.id);
 
 const chessSolved = (raw: Parameters<typeof normalizeChessProgress>[0]) =>
   Object.values(normalizeChessProgress(raw).puzzles).filter((record) => record.solved).length;
@@ -64,6 +68,10 @@ export default function LearnPage() {
       anatomy: Math.round(
         (anatomySummary(normalizeAnatomyProgress(data.anatomy), STRUCTURE_IDS).learned /
           TOTAL_STRUCTURES) *
+          100,
+      ),
+      people: Math.round(
+        (peopleSummary(normalizePeopleProgress(data.people), PERSON_IDS).learned / TOTAL_PEOPLE) *
           100,
       ),
       none: 0,

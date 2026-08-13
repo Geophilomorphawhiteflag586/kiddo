@@ -21,6 +21,10 @@ import { emptyAnatomyProgress } from '../modules/anatomy/progress.ts';
 import { isLearned as isStructureLearned } from '../modules/anatomy/mastery.ts';
 import { STRUCTURES, TOTAL_STRUCTURES } from '../modules/anatomy/structures.ts';
 import type { AnatomyProgress } from '../modules/anatomy/types.ts';
+import { emptyPeopleProgress } from '../modules/people/progress.ts';
+import { isLearned as isPersonLearned } from '../modules/people/mastery.ts';
+import { PEOPLE, TOTAL_PEOPLE } from '../modules/people/people.ts';
+import type { PeopleProgress } from '../modules/people/types.ts';
 import { cardKey, countryLevel, skillLevel } from './skills.ts';
 import { newCard, review } from './srs.ts';
 import type { AnswerOutcome, CountryProgress, CountrySkill, ReviewCard } from './types';
@@ -55,6 +59,7 @@ export interface ProfileData {
   chess: ChessProgress;
   /** Прогресс модуля анатомии. */
   anatomy: AnatomyProgress;
+  people: PeopleProgress;
 }
 
 export interface SessionRecord {
@@ -98,6 +103,9 @@ export const ACHIEVEMENTS: Achievement[] = [
   { id: 'chess-25', title: 'Двадцать пять', description: 'Решите 25 задач', emoji: '♞' },
   { id: 'chess-100', title: 'Сотня матов', description: 'Решите 100 задач', emoji: '♛' },
   { id: 'chess-streak-10', title: 'Точный расчёт', description: '10 задач подряд с первой попытки', emoji: '🎯' },
+  { id: 'people-first', title: 'Знакомство', description: 'Узнайте первого человека', emoji: '👤' },
+  { id: 'people-ten', title: 'Десять лиц', description: 'Освойте десять человек', emoji: '🧑‍🤝‍🧑' },
+  { id: 'people-all', title: 'Знаток', description: 'Освойте всех людей в базе', emoji: '🏛️' },
   { id: 'anatomy-first', title: 'Первый орган', description: 'Изучите первую структуру', emoji: '🫀' },
   { id: 'anatomy-organs', title: 'Внутри тела', description: 'Освойте все органы', emoji: '🧬' },
   { id: 'anatomy-bones', title: 'Скелет', description: 'Освойте все кости', emoji: '🦴' },
@@ -126,6 +134,7 @@ export function emptyProfileData(): ProfileData {
     chinese: emptyChineseProgress(),
     chess: emptyChessProgress(),
     anatomy: emptyAnatomyProgress(),
+    people: emptyPeopleProgress(),
   };
 }
 
@@ -419,6 +428,26 @@ export function applyAnatomyResult(
   };
 }
 
+/** Применяет ответ о человеке: модуль + общий учёт активности. */
+export function applyPeopleResult(
+  data: ProfileData,
+  people: PeopleProgress,
+  correct: boolean,
+  xpGained: number,
+  now = Date.now(),
+): { data: ProfileData; unlocked: Achievement[] } {
+  const next: ProfileData = {
+    ...data,
+    ...registerActivity(data, correct, xpGained, now),
+    people,
+  };
+  const earned = checkAchievements(next).filter((a) => !data.unlocked.includes(a.id));
+  return {
+    data: { ...next, unlocked: [...data.unlocked, ...earned.map((a) => a.id)] },
+    unlocked: earned,
+  };
+}
+
 /** Применяет результат шахматной попытки: модуль + общий учёт активности. */
 export function applyChessResult(
   data: ProfileData,
@@ -559,6 +588,14 @@ function checkAchievements(data: ProfileData): Achievement[] {
     if (learnedIn('organs') >= totalIn('organs')) give('anatomy-organs');
     if (learnedIn('bones') >= totalIn('bones')) give('anatomy-bones');
     if (anatomyLearnedCount(data) >= TOTAL_STRUCTURES) give('anatomy-all');
+  }
+
+  const people = data.people;
+  if (people) {
+    const learned = PEOPLE.filter((person) => isPersonLearned(people, person.id)).length;
+    if (people.seen.length >= 1) give('people-first');
+    if (learned >= 10) give('people-ten');
+    if (learned >= TOTAL_PEOPLE) give('people-all');
   }
 
   const europe = COUNTRIES.filter((c) => c.continent === 'europe');
