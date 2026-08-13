@@ -56,3 +56,4 @@ AGENTS.md
 # Кеш и промежуточные данные модуля «Известные люди»
 assets-src/people-cache/
 assets-src/people-verified.json
+assets-src/people-images.json
