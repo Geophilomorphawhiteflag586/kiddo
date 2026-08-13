@@ -425,3 +425,4 @@ test('сводка считает освоение от всей базы', () =
   assert.ok(summary.bySkill.pronunciationRecognition >= 0);
   assert.equal(summary.bySkill.listeningRecognition, 0);
 });
+

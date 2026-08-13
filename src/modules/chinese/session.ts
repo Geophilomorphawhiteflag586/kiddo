@@ -8,6 +8,7 @@
  *    потому что в мандарине тон — это и есть основная трудность.
  */
 import { isDue } from '../../lib/srs.ts';
+import { newItemQuota } from '../../lib/newItems.ts';
 import { CHARACTERS, canSpeakPinyin, getCharacter } from './characters.ts';
 import {
   MODE_SKILL,
@@ -215,8 +216,16 @@ export function buildSession({
   const questions: ChineseQuestion[] = [];
   const used = new Set<string>();
 
+  /**
+   * Место под новые иероглифы резервируется заранее: раньше новое стояло
+   * последним и почти никогда не помещалось. При частых ошибках норма
+   * обнуляется сама — сначала выправиться, потом расширять базу.
+   */
+  const quota = newItemQuota({ length, cards: Object.values(progress.cards), now });
+  let cap = Math.max(1, length - quota);
+
   const push = (characterId: string, mode: ChineseQuizMode) => {
-    if (questions.length >= length) return;
+    if (questions.length >= cap) return;
     const key = cardKey(characterId, MODE_SKILL[mode]);
     if (used.has(key)) return;
     const target = getCharacter(characterId);
@@ -277,7 +286,8 @@ export function buildSession({
   const fresh = available.filter((char) =>
     SKILLS.every((skill) => !progress.cards[cardKey(char.id, skill)]),
   );
-  const newTarget = Math.min(SESSION_MIX.newChars, Math.max(0, length - questions.length));
+  cap = length;
+  const newTarget = Math.max(quota, Math.min(SESSION_MIX.newChars, length - questions.length));
   for (const char of fresh.slice(0, newTarget)) push(char.id, 'character-to-pinyin');
 
   // 5. Добор: знакомые знаки, затем оставшиеся новые.

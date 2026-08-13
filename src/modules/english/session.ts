@@ -4,6 +4,7 @@
  * затем новые слова — та же философия, что в модуле флагов.
  */
 import { isDue } from '../../lib/srs.ts';
+import { newItemQuota } from '../../lib/newItems.ts';
 import { MODE_UNLOCK, OPTION_COUNT, SESSION_LENGTH, SESSION_MIX } from './config.ts';
 import { wordPercent } from './mastery.ts';
 import type { EnglishProgress, EnglishQuestion, EnglishWord, QuizMode } from './types.ts';
@@ -100,8 +101,19 @@ export function buildSession({
   const questions: EnglishQuestion[] = [];
   const used = new Set<string>();
 
+  /**
+   * Место под новые слова резервируется заранее.
+   *
+   * Раньше новое стояло последним в очереди и почти никогда не помещалось:
+   * ошибки и просроченные повторения съедали сессию целиком, и база
+   * открывалась мучительно медленно. Теперь повторения ограничены `cap`, а
+   * остаток отдан новым словам.
+   */
+  const quota = newItemQuota({ length, cards: Object.values(progress.cards), now });
+  let cap = Math.max(1, length - quota);
+
   const push = (wordId: string) => {
-    if (questions.length >= length || used.has(wordId)) return;
+    if (questions.length >= cap || used.has(wordId)) return;
     const word = getWord(wordId);
     if (!word) return;
     used.add(wordId);
@@ -143,11 +155,13 @@ export function buildSession({
     }
   }
 
-  // 4. Новые слова — от простых к сложным.
+  // 4. Новые слова — от простых к сложным. Здесь снимаем ограничение:
+  // зарезервированные места как раз для них.
+  cap = length;
   const fresh = pool
     .filter((word) => !progress.cards[word.id])
     .sort((a, b) => a.difficulty - b.difficulty);
-  const newTarget = Math.min(SESSION_MIX.newWords, Math.max(0, length - questions.length));
+  const newTarget = Math.max(quota, Math.min(SESSION_MIX.newWords, length - questions.length));
   for (const word of fresh.slice(0, newTarget)) push(word.id);
 
   // 5. Добор: сначала оставшиеся новые, затем повторение уже знакомого.

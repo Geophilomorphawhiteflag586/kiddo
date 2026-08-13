@@ -2,6 +2,7 @@ import { CONFUSABLE_MAP } from '../data/confusables.ts';
 import { COUNTRIES, WITHOUT_POLYGON, getCountry } from './countries.ts';
 import { type ProfileData, totalConfusions } from './progress.ts';
 import { cardKey, skillLevel } from './skills.ts';
+import { newItemQuota } from './newItems.ts';
 import { errorRate, isDue } from './srs.ts';
 import type { AgeMode, Country, CountryProgress, CountrySkill, ReviewCard } from './types';
 
@@ -204,8 +205,21 @@ export function buildPersonalSession({
   const used = new Set<string>();
   const perCountry = new Map<string, number>();
 
+  /**
+   * Место под новые страны резервируется заранее.
+   *
+   * Раньше новые страны стояли пятыми в очереди — после ошибок, повторений,
+   * путаницы и незатронутых навыков знакомых стран. До них почти никогда не
+   * доходило, и за полчаса игры ребёнок не видел ни одного нового флага.
+   *
+   * При частых ошибках норма обнуляется сама: подсовывать незнакомое, когда
+   * путается уже начатое, — только мешать.
+   */
+  const quota = newItemQuota({ length, cards: Object.values(data.cards), now });
+  let cap = Math.max(1, length - quota);
+
   const push = (code: string, skill: CountrySkill) => {
-    if (questions.length >= length) return;
+    if (questions.length >= cap) return;
     if (skill === 'outlineToCountry' && WITHOUT_POLYGON.has(code)) return;
     const key = cardKey(code, skill);
     if (used.has(key)) return;
@@ -254,7 +268,9 @@ export function buildPersonalSession({
     }
   }
 
-  // 5. Новые страны — от крупных и известных к редким.
+  // 5. Новые страны — от крупных и известных к редким. Снимаем ограничение:
+  // зарезервированные места как раз для них.
+  cap = length;
   const fresh = effectivePool
     .filter((c) => !skills.some((skill) => data.cards[cardKey(c.code, skill)]))
     .sort((a, b) => a.tier - b.tier || b.area - a.area);
