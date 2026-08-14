@@ -151,21 +151,22 @@ function ModuleCard({
     <>
       {icon ? (
         <>
-          {/* Рисунок направления занимает левую часть карточки. */}
+          {/* Картинка занимает всю карточку: она и есть фон. */}
           <Image
             src={icon}
             alt=""
             fill
-            sizes="(max-width: 640px) 100vw, 460px"
-            className="object-cover object-left"
+            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 460px"
+            className="object-cover"
+            priority={module.id === 'geography'}
           />
-          {/* Растушёвка вправо: под текстом должен быть ровный цвет, а не рисунок. */}
+          {/*
+            Затемнение снизу — под текст. Без него подпись пропадает на
+            светлых участках: глобус и флаг Британии как раз такие.
+          */}
           <span
             aria-hidden
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(90deg, transparent 0%, ${to}66 34%, ${to}F2 52%, ${to} 66%)`,
-            }}
+            className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/5"
           />
         </>
       ) : (
@@ -177,33 +178,36 @@ function ModuleCard({
         </span>
       )}
 
-      <div className="relative ml-auto flex h-full w-[52%] flex-col justify-center p-5">
-        <h3 className="text-2xl font-extrabold leading-tight">{module.title}</h3>
-        <p className="mt-1 text-sm font-semibold text-white/75">{module.tagline}</p>
-        {goal && (
-          <p
-            className={`mt-2 inline-flex w-fit rounded-full px-2.5 py-1 text-xs font-extrabold ${
-              goal.done ? 'bg-emerald-400 text-emerald-950' : 'bg-black/35 text-white'
-            }`}
-          >
-            {goal.done
-              ? 'На сегодня готово'
-              : `${goal.current} / ${goal.target}${goal.goal.kind === 'time' ? ' мин' : ''}`}
-          </p>
-        )}
-      </div>
-
-      {/* Настоящий прогресс — поверх рисунка, во всю ширину карточки. */}
-      <div className="absolute inset-x-5 bottom-4">
-        <div className="mb-1.5 flex items-baseline justify-between text-xs font-extrabold">
-          <span className="text-white/75">{module.note ?? ''}</span>
-          <span>{soon ? 'Скоро' : `${percent}%`}</span>
+      <div className="relative flex h-full flex-col justify-end p-5">
+        <div className="flex items-end gap-3">
+          <div className="min-w-0 flex-1">
+            <h3 className="text-2xl font-extrabold leading-tight drop-shadow">{module.title}</h3>
+            <p className="mt-0.5 truncate text-sm font-semibold text-white/80">{module.tagline}</p>
+          </div>
+          {goal && (
+            <span
+              className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-extrabold ${
+                goal.done ? 'bg-emerald-400 text-emerald-950' : 'bg-black/50 text-white'
+              }`}
+            >
+              {goal.done
+                ? 'Готово'
+                : `${goal.current} / ${goal.target}${goal.goal.kind === 'time' ? ' мин' : ''}`}
+            </span>
+          )}
         </div>
-        <div className="h-1.5 w-full overflow-hidden rounded-full bg-black/35">
-          <div
-            className="h-full rounded-full bg-white transition-[width] duration-500"
-            style={{ width: soon ? '0%' : `${percent}%` }}
-          />
+
+        <div className="mt-3">
+          <div className="mb-1.5 flex items-baseline justify-between text-xs font-extrabold">
+            <span className="text-white/80">{module.note ?? ''}</span>
+            <span>{soon ? 'Скоро' : `${percent}%`}</span>
+          </div>
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-black/45">
+            <div
+              className="h-full rounded-full bg-white transition-[width] duration-500"
+              style={{ width: soon ? '0%' : `${percent}%` }}
+            />
+          </div>
         </div>
       </div>
     </>
@@ -213,7 +217,7 @@ function ModuleCard({
 
   if (soon) {
     return (
-      <div className="tile tile-soon relative h-52" style={style} aria-disabled>
+      <div className="tile tile-soon relative h-56" style={style} aria-disabled>
         {body}
       </div>
     );
@@ -223,7 +227,7 @@ function ModuleCard({
     <Link
       href={module.href}
       style={style}
-      className="tile relative block h-52 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+      className="tile relative block h-56 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
     >
       {body}
     </Link>

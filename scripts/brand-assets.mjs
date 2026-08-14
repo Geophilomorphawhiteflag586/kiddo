@@ -13,7 +13,8 @@
  *   english.*     │ значки направлений: по одному на карточку в «Учиться».
  *   chinese.*     │ Имя файла = id модуля из src/modules/registry.ts
  *   anatomy.*     │
- *   chess.*       ┘
+ *   chess.*       │
+ *   people.*      ┘
  *
  * Скрипт сам уменьшит их до разумного размера, переведёт в webp и положит в
  * public/brand и public/modules. Оригиналы остаются в assets-src (эта папка в
@@ -30,13 +31,23 @@ const BRAND_OUT = join(process.cwd(), 'public', 'brand');
 const MODULES_OUT = join(process.cwd(), 'public', 'modules');
 
 /** id модулей — должны совпадать с реестром направлений. */
-const MODULE_IDS = ['geography', 'mathematics', 'english', 'chinese', 'anatomy', 'chess'];
+const MODULE_IDS = [
+  'geography',
+  'mathematics',
+  'english',
+  'chinese',
+  'anatomy',
+  'chess',
+  'people',
+];
 
 /** Максимальный размер по каждой стороне. Больше на экране всё равно не нужно. */
 const LIMITS = {
   logo: { width: 720, height: 240 },
   mark: { width: 256, height: 256 },
-  module: { width: 320, height: 320 },
+  // Картинки направлений горизонтальные и показываются во всю карточку,
+  // поэтому предел выше и без квадратной обрезки.
+  module: { width: 900, height: 700 },
 };
 
 const SUPPORTED = new Set(['.png', '.jpg', '.jpeg', '.webp', '.svg']);

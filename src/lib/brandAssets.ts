@@ -15,5 +15,6 @@ export const MODULE_ICONS: Record<string, string> = {
   "english": "/modules/english.webp",
   "chinese": "/modules/chinese.webp",
   "anatomy": "/modules/anatomy.webp",
-  "chess": "/modules/chess.webp"
+  "chess": "/modules/chess.webp",
+  "people": "/modules/people.webp"
 };
