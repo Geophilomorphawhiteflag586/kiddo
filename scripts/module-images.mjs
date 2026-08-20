@@ -22,7 +22,12 @@ mkdirSync(OUT, { recursive: true });
 const ORDER = ['geography', 'mathematics', 'english', 'chinese', 'anatomy', 'chess', 'people'];
 
 /** Обрезка для картинок, где часть кадра занимает вшитый текст. */
-const CROPS = { people: [0.03, 0.05, 0.6, 0.95] };
+const CROPS = { people: [0.035, 0.1, 0.605, 0.66] };
+
+/**
+ * Карточки показывают картинку целиком, поэтому все кадры приводятся к 3:2.
+ * Иначе часть изображения обрезается по краям, и это заметно.
+ */
 
 const files = readdirSync(SOURCE)
   .filter((name) => name.startsWith('ChatGPT Image 14') && name.endsWith('.png'))

@@ -47,7 +47,7 @@ const LIMITS = {
   mark: { width: 256, height: 256 },
   // Картинки направлений горизонтальные и показываются во всю карточку,
   // поэтому предел выше и без квадратной обрезки.
-  module: { width: 900, height: 700 },
+  module: { width: 1200, height: 900 },
 };
 
 const SUPPORTED = new Set(['.png', '.jpg', '.jpeg', '.webp', '.svg']);
@@ -173,13 +173,14 @@ async function place(stem, limit, outDir, options) {
     const target = join(outDir, `${stem}.svg`);
     copyFileSync(sourcePath, target);
     console.log(`${stem}.svg — скопирован как есть`);
-    return `${stem}.svg`;
+    return { file: `${stem}.svg`, width: 0, height: 0 };
   }
 
   const target = join(outDir, `${stem}.webp`);
   const size = await convert(sourcePath, target, limit, options);
   console.log(`${stem}.webp — ${size} (из ${match})`);
-  return `${stem}.webp`;
+  const [width, height] = size.split(' ')[0].split('x').map(Number);
+  return { file: `${stem}.webp`, width, height };
 }
 
 const placed = { logo: null, mark: null, modules: {} };
@@ -188,7 +189,13 @@ placed.logo = await place('logo', LIMITS.logo, BRAND_OUT, { transparent: true })
 placed.mark = await place('mark', LIMITS.mark, BRAND_OUT, { transparent: true });
 for (const id of MODULE_IDS) {
   const result = await place(id, LIMITS.module, MODULES_OUT);
-  if (result) placed.modules[id] = `/modules/${result}`;
+  if (result) {
+    placed.modules[id] = {
+      src: `/modules/${result.file}`,
+      width: result.width,
+      height: result.height,
+    };
+  }
 }
 
 // Манифест читают компоненты: чего нет — рисуется как раньше.
@@ -202,10 +209,18 @@ writeFileSync(
  * направления символом. Положите файл в assets-src/brand и перезапустите
  * команду, чтобы подставился ваш.
  */
-export const BRAND_LOGO: string | null = ${placed.logo ? `'/brand/${placed.logo}'` : 'null'};
-export const BRAND_MARK: string | null = ${placed.mark ? `'/brand/${placed.mark}'` : 'null'};
+export const BRAND_LOGO: string | null = ${placed.logo ? `'/brand/${placed.logo.file}'` : 'null'};
+export const BRAND_MARK: string | null = ${placed.mark ? `'/brand/${placed.mark.file}'` : 'null'};
 
-export const MODULE_ICONS: Record<string, string> = ${JSON.stringify(placed.modules, null, 2)};
+/** Размеры нужны карточке: она берёт пропорцию своей картинки, чтобы
+ *  показать её целиком, без обрезки и без пустых полей. */
+export interface ModuleIcon {
+  src: string;
+  width: number;
+  height: number;
+}
+
+export const MODULE_ICONS: Record<string, ModuleIcon> = ${JSON.stringify(placed.modules, null, 2)};
 `,
 );
 

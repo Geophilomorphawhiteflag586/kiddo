@@ -118,7 +118,7 @@ export default function LearnPage() {
 
         <h2 className="mb-4 mt-9 text-xl font-extrabold">Что будем изучать?</h2>
 
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid items-start gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {LEARNING_MODULES.map((module) => (
             <ModuleCard
               key={module.id}
@@ -153,10 +153,10 @@ function ModuleCard({
         <>
           {/* Картинка занимает всю карточку: она и есть фон. */}
           <Image
-            src={icon}
+            src={icon.src}
             alt=""
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 460px"
+            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 480px"
             className="object-cover"
             priority={module.id === 'geography'}
           />
@@ -213,11 +213,17 @@ function ModuleCard({
     </>
   );
 
-  const style = { '--from': from, '--to': to } as React.CSSProperties;
+  // Пропорция карточки повторяет пропорцию картинки: так она видна целиком,
+  // без обрезки по краям и без пустых полей по бокам.
+  const style = {
+    '--from': from,
+    '--to': to,
+    aspectRatio: icon ? `${icon.width} / ${icon.height}` : '3 / 2',
+  } as React.CSSProperties;
 
   if (soon) {
     return (
-      <div className="tile tile-soon relative h-56" style={style} aria-disabled>
+      <div className="tile tile-soon relative" style={style} aria-disabled>
         {body}
       </div>
     );
@@ -227,7 +233,7 @@ function ModuleCard({
     <Link
       href={module.href}
       style={style}
-      className="tile relative block h-56 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+      className="tile relative block focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
     >
       {body}
     </Link>
